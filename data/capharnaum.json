@@ -1,0 +1,1736 @@
+{
+  "version_schema": "1.0.0",
+  "sangs": [
+    {
+      "id": "saabi",
+      "nom": "Saabi",
+      "type_origine": "Clan"
+    },
+    {
+      "id": "shiradi",
+      "nom": "Shiradi",
+      "type_origine": "Tribu"
+    },
+    {
+      "id": "agalantheen",
+      "nom": "Agalanthéen",
+      "type_origine": "Cité"
+    },
+    {
+      "id": "escarte",
+      "nom": "Escarte",
+      "type_origine": "Nation"
+    }
+  ],
+  "origines": [
+    {
+      "id": "malik",
+      "nom": "Ibn Malik Abd-al-Hassan",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "coordination",
+            "puissance"
+          ],
+          "valeur": 1,
+          "source": "coordination|puissance+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "commander"
+          ],
+          "valeur": 1,
+          "source": "commander+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "entrainer"
+          ],
+          "valeur": 1,
+          "source": "entrainer+1"
+        }
+      ]
+    },
+    {
+      "id": "mussah",
+      "nom": "Ibn Mussah Abd-al-Hassan",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "npplf"
+          ],
+          "valeur": 1,
+          "source": "npplf+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "flatter"
+          ],
+          "valeur": 1,
+          "source": "flatter+1"
+        }
+      ]
+    },
+    {
+      "id": "rachid",
+      "nom": "Ibn Rachid Abd-al-Hassan",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "souffle"
+          ],
+          "valeur": 1,
+          "source": "souffle+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "assassinat"
+          ],
+          "valeur": 1,
+          "source": "assassinat+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "poesie"
+          ],
+          "valeur": 1,
+          "source": "poesie+1"
+        }
+      ]
+    },
+    {
+      "id": "yucef",
+      "nom": "Ibn Yucef Abd-al-Salif",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "sagesse",
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "sagesse|charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "flatter"
+          ],
+          "valeur": 1,
+          "source": "flatter+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "negoce"
+          ],
+          "valeur": 1,
+          "source": "negoce+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "periple"
+          ],
+          "valeur": 1,
+          "source": "periple+1"
+        }
+      ]
+    },
+    {
+      "id": "aziz",
+      "nom": "Ibn Aziz Abd-al-Salif",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "detrousser"
+          ],
+          "valeur": 1,
+          "source": "detrousser+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "negoce"
+          ],
+          "valeur": 1,
+          "source": "negoce+1"
+        }
+      ]
+    },
+    {
+      "id": "khalil",
+      "nom": "Ibn Khalil Abd-al-Salif",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "souffle"
+          ],
+          "valeur": 1,
+          "source": "souffle+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "agriculture"
+          ],
+          "valeur": 1,
+          "source": "agriculture+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "equitation"
+          ],
+          "valeur": 1,
+          "source": "equitation+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "periple"
+          ],
+          "valeur": 1,
+          "source": "periple+1"
+        }
+      ]
+    },
+    {
+      "id": "tufiq",
+      "nom": "Ibn Tufiq Abd-al-Tarek",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "puissance"
+          ],
+          "valeur": 1,
+          "source": "puissance+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "entrainer"
+          ],
+          "valeur": 1,
+          "source": "entrainer+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "priere"
+          ],
+          "valeur": 1,
+          "source": "priere+1"
+        }
+      ]
+    },
+    {
+      "id": "mimoun",
+      "nom": "Ibn Mimoun Abd-al-Tarek",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "charme+1"
+        },
+        {
+          "type": "choix",
+          "cibles": [
+            "assassinat",
+            "verbe_sacre"
+          ],
+          "valeur": 1,
+          "source": "assassinat|verbe_sacre+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "discretion"
+          ],
+          "valeur": 1,
+          "source": "discretion+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "flatter"
+          ],
+          "valeur": 1,
+          "source": "flatter+1"
+        }
+      ]
+    },
+    {
+      "id": "mammud",
+      "nom": "Ibn Mammûd Abd-al-Tarek",
+      "sang_id": "saabi",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "coordination",
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "coordination|charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "periple"
+          ],
+          "valeur": 1,
+          "source": "periple+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "priere"
+          ],
+          "valeur": 1,
+          "source": "priere+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "verbe_sacre"
+          ],
+          "valeur": 1,
+          "source": "verbe_sacre+1"
+        }
+      ]
+    },
+    {
+      "id": "ashkenim",
+      "nom": "Ashkenim",
+      "sang_id": "shiradi",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "coordination",
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "coordination|charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "npplf"
+          ],
+          "valeur": 1,
+          "source": "npplf+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        }
+      ]
+    },
+    {
+      "id": "pharatim",
+      "nom": "Pharatim",
+      "sang_id": "shiradi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "enseigner"
+          ],
+          "valeur": 1,
+          "source": "enseigner+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "ppl_histoire"
+          ],
+          "valeur": 1,
+          "source": "ppl_histoire+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "science"
+          ],
+          "valeur": 1,
+          "source": "science+1"
+        }
+      ]
+    },
+    {
+      "id": "salonim",
+      "nom": "Salonim",
+      "sang_id": "shiradi",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "assassinat"
+          ],
+          "valeur": 1,
+          "source": "assassinat+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "science"
+          ],
+          "valeur": 2,
+          "source": "science+2"
+        }
+      ]
+    },
+    {
+      "id": "thereme",
+      "nom": "Thérème",
+      "sang_id": "agalantheen",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "equitation"
+          ],
+          "valeur": 1,
+          "source": "equitation+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        }
+      ]
+    },
+    {
+      "id": "fragrance",
+      "nom": "Fragrance",
+      "sang_id": "agalantheen",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "coordination",
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "coordination|charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "agriculture"
+          ],
+          "valeur": 1,
+          "source": "agriculture+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "equitation"
+          ],
+          "valeur": 1,
+          "source": "equitation+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        }
+      ]
+    },
+    {
+      "id": "etrusie",
+      "nom": "Étrusie",
+      "sang_id": "agalantheen",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "souffle",
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "souffle|charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "agriculture"
+          ],
+          "valeur": 1,
+          "source": "agriculture+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "tenir_le_coup"
+          ],
+          "valeur": 1,
+          "source": "tenir_le_coup+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        }
+      ]
+    },
+    {
+      "id": "aragon",
+      "nom": "Aragón",
+      "sang_id": "escarte",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "coordination",
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "coordination|charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "agriculture"
+          ],
+          "valeur": 1,
+          "source": "agriculture+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "equitation"
+          ],
+          "valeur": 1,
+          "source": "equitation+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        }
+      ]
+    },
+    {
+      "id": "occidentine",
+      "nom": "Occidentine",
+      "sang_id": "escarte",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "puissance",
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "puissance|sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "agriculture"
+          ],
+          "valeur": 1,
+          "source": "agriculture+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "npplf"
+          ],
+          "valeur": 1,
+          "source": "npplf+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        }
+      ]
+    },
+    {
+      "id": "dorkadie",
+      "nom": "Dorkadie",
+      "sang_id": "escarte",
+      "bonus": [
+        {
+          "type": "choix",
+          "cibles": [
+            "puissance",
+            "souffle"
+          ],
+          "valeur": 1,
+          "source": "puissance|souffle+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "epreuve"
+          ],
+          "valeur": 1,
+          "source": "epreuve+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "periple"
+          ],
+          "valeur": 1,
+          "source": "periple+1"
+        }
+      ]
+    }
+  ],
+  "paroles": [
+    {
+      "id": "cimeterres_feu",
+      "nom": "Le Sentier de cimeterres de feu",
+      "sang_id": "saabi",
+      "origine_id": "malik",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "epreuve"
+          ],
+          "valeur": 1,
+          "source": "epreuve+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "verbe_sacre"
+          ],
+          "valeur": 1,
+          "source": "verbe_sacre+1"
+        }
+      ]
+    },
+    {
+      "id": "alchimie_hommes",
+      "nom": "L'alchimie des hommes",
+      "sang_id": "saabi",
+      "origine_id": "mussah",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "inspiration"
+          ],
+          "valeur": 1,
+          "source": "inspiration+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "science"
+          ],
+          "valeur": 1,
+          "source": "science+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "verbe_sacre"
+          ],
+          "valeur": 1,
+          "source": "verbe_sacre+1"
+        }
+      ]
+    },
+    {
+      "id": "soupcon_traitres",
+      "nom": "Le soupçon des traîtres",
+      "sang_id": "saabi",
+      "origine_id": "rachid",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "assassinat"
+          ],
+          "valeur": 1,
+          "source": "assassinat+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "discretion"
+          ],
+          "valeur": 1,
+          "source": "discretion+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "elegance"
+          ],
+          "valeur": 1,
+          "source": "elegance+1"
+        }
+      ]
+    },
+    {
+      "id": "dunes_safran",
+      "nom": "Les dunes de Safran",
+      "sang_id": "saabi",
+      "origine_id": "yucef",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "flatter"
+          ],
+          "valeur": 1,
+          "source": "flatter+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "negoce"
+          ],
+          "valeur": 1,
+          "source": "negoce+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "verbe_sacre"
+          ],
+          "valeur": 1,
+          "source": "verbe_sacre+1"
+        }
+      ]
+    },
+    {
+      "id": "enfants_souk",
+      "nom": "Les enfants du souk",
+      "sang_id": "saabi",
+      "origine_id": "aziz",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "detrousser"
+          ],
+          "valeur": 1,
+          "source": "detrousser+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "discretion"
+          ],
+          "valeur": 1,
+          "source": "discretion+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "s_introduire"
+          ],
+          "valeur": 1,
+          "source": "s_introduire+1"
+        }
+      ]
+    },
+    {
+      "id": "walad_badiya",
+      "nom": "Les Walad Badiya",
+      "sang_id": "saabi",
+      "origine_id": "khalil",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "equitation"
+          ],
+          "valeur": 1,
+          "source": "equitation+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "contes"
+          ],
+          "valeur": 1,
+          "source": "contes+1"
+        }
+      ]
+    },
+    {
+      "id": "marcheurs_sang",
+      "nom": "Les Marcheurs aux semelles de sang",
+      "sang_id": "saabi",
+      "origine_id": "tufiq",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "puissance"
+          ],
+          "valeur": 1,
+          "source": "puissance+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "impressionner"
+          ],
+          "valeur": 1,
+          "source": "impressionner+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "priere"
+          ],
+          "valeur": 1,
+          "source": "priere+1"
+        }
+      ]
+    },
+    {
+      "id": "vierges_papier",
+      "nom": "Les filles aimées d’Agushaya",
+      "sang_id": "saabi",
+      "origine_id": "mimoun",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "detrousser"
+          ],
+          "valeur": 1,
+          "source": "detrousser+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "flatter"
+          ],
+          "valeur": 1,
+          "source": "flatter+1"
+        },
+        {
+          "type": "choix",
+          "cibles": [
+            "comedie",
+            "poesie",
+            "musique"
+          ],
+          "valeur": 1,
+          "source": "comedie|poesie|musique+1"
+        }
+      ]
+    },
+    {
+      "id": "prieurs_sables",
+      "nom": "Les prieurs des sables",
+      "sang_id": "saabi",
+      "origine_id": "mammud",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "epreuve"
+          ],
+          "valeur": 1,
+          "source": "epreuve+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "periple"
+          ],
+          "valeur": 1,
+          "source": "periple+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "priere"
+          ],
+          "valeur": 1,
+          "source": "priere+1"
+        }
+      ]
+    },
+    {
+      "id": "lions_rouges",
+      "nom": "Les Lions Rouges de Shirad",
+      "sang_id": "shiradi",
+      "origine_id": "ashkenim",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "entrainer"
+          ],
+          "valeur": 1,
+          "source": "entrainer+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "priere"
+          ],
+          "valeur": 1,
+          "source": "priere+1"
+        }
+      ]
+    },
+    {
+      "id": "voix_celeste",
+      "nom": "La Voix céleste de Shirad",
+      "sang_id": "shiradi",
+      "origine_id": "pharatim",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "charme"
+          ],
+          "valeur": 1,
+          "source": "charme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "enseigner"
+          ],
+          "valeur": 1,
+          "source": "enseigner+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "verbe_sacre"
+          ],
+          "valeur": 1,
+          "source": "verbe_sacre+1"
+        },
+        {
+          "type": "choix",
+          "cibles": [
+            "science",
+            "ppl_histoire"
+          ],
+          "valeur": 1,
+          "source": "science|ppl_histoire+1"
+        }
+      ]
+    },
+    {
+      "id": "coeur_sacre_shirad",
+      "nom": "Le cœur sacré de Shirad",
+      "sang_id": "shiradi",
+      "origine_id": "salonim",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "science"
+          ],
+          "valeur": 3,
+          "source": "science+3"
+        }
+      ]
+    },
+    {
+      "id": "lune_de_sang",
+      "nom": "Les assassins de la Lune de Sang",
+      "sang_id": "shiradi",
+      "origine_id": "salonim",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "sagesse"
+          ],
+          "valeur": 1,
+          "source": "sagesse+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "science"
+          ],
+          "valeur": 2,
+          "source": "science+2"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "discretion"
+          ],
+          "valeur": 1,
+          "source": "discretion+1"
+        }
+      ]
+    },
+    {
+      "id": "myrmidons_theremeens",
+      "nom": "L’Ordre des myrmidons théréméens",
+      "sang_id": "agalantheen",
+      "origine_id": "thereme",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "entrainer"
+          ],
+          "valeur": 2,
+          "source": "entrainer+2"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "commander"
+          ],
+          "valeur": 1,
+          "source": "commander+1"
+        }
+      ]
+    },
+    {
+      "id": "auriges_fragrantins",
+      "nom": "Les Auriges fragrantins",
+      "sang_id": "agalantheen",
+      "origine_id": "fragrance",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "equitation"
+          ],
+          "valeur": 2,
+          "source": "equitation+2"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "flatter"
+          ],
+          "valeur": 1,
+          "source": "flatter+1"
+        }
+      ]
+    },
+    {
+      "id": "bacchorantes_etrusiens",
+      "nom": "Les Bacchorantes étrusiens",
+      "sang_id": "agalantheen",
+      "origine_id": "etrusie",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "souffle"
+          ],
+          "valeur": 1,
+          "source": "souffle+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "agriculture"
+          ],
+          "valeur": 1,
+          "source": "agriculture+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "flatter"
+          ],
+          "valeur": 1,
+          "source": "flatter+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "sacrifice"
+          ],
+          "valeur": 1,
+          "source": "sacrifice+1"
+        }
+      ]
+    },
+    {
+      "id": "duellistes",
+      "nom": "Les Duellistes de San Llorente de Valladòn",
+      "sang_id": "escarte",
+      "origine_id": "aragon",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "equitation"
+          ],
+          "valeur": 1,
+          "source": "equitation+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "agriculture"
+          ],
+          "valeur": 1,
+          "source": "agriculture+1"
+        }
+      ]
+    },
+    {
+      "id": "gerta_dragon",
+      "nom": "Sainte Gerta qui pourfendit le dragon",
+      "sang_id": "escarte",
+      "origine_id": "dorkadie",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "puissance"
+          ],
+          "valeur": 1,
+          "source": "puissance+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "entrainer"
+          ],
+          "valeur": 1,
+          "source": "entrainer+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "impressionner"
+          ],
+          "valeur": 1,
+          "source": "impressionner+1"
+        }
+      ]
+    },
+    {
+      "id": "temple_sagrada",
+      "nom": "Ordre du Temple de Sagrada",
+      "sang_id": "escarte",
+      "origine_id": "occidentine",
+      "bonus": [
+        {
+          "type": "fixe",
+          "cibles": [
+            "coordination"
+          ],
+          "valeur": 1,
+          "source": "coordination+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "arme"
+          ],
+          "valeur": 1,
+          "source": "arme+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "priere"
+          ],
+          "valeur": 1,
+          "source": "priere+1"
+        },
+        {
+          "type": "fixe",
+          "cibles": [
+            "verbe_sacre"
+          ],
+          "valeur": 1,
+          "source": "verbe_sacre+1"
+        }
+      ]
+    }
+  ],
+  "caracteristiques": [
+    {
+      "id": "coordination",
+      "nom": "Coordination"
+    },
+    {
+      "id": "charme",
+      "nom": "Charme"
+    },
+    {
+      "id": "puissance",
+      "nom": "Puissance"
+    },
+    {
+      "id": "souffle",
+      "nom": "Souffle"
+    },
+    {
+      "id": "sagesse",
+      "nom": "Sagesse"
+    }
+  ],
+  "vertus": [
+    {
+      "id": "bravoure",
+      "nom": "Bravoure"
+    },
+    {
+      "id": "foi",
+      "nom": "Foi"
+    },
+    {
+      "id": "fidelite",
+      "nom": "Fidélité"
+    }
+  ],
+  "figures": [
+    {
+      "id": "aventurer",
+      "nom": "L'Aventurier",
+      "competence_ids": [
+        "epreuve",
+        "equitation",
+        "contes",
+        "periple"
+      ]
+    },
+    {
+      "id": "sage",
+      "nom": "Le Sage",
+      "competence_ids": [
+        "science",
+        "enseigner",
+        "ppl_histoire",
+        "percevoir"
+      ]
+    },
+    {
+      "id": "prince",
+      "nom": "Le Prince",
+      "competence_ids": [
+        "npplf",
+        "elegance",
+        "flatter",
+        "negoce"
+      ]
+    },
+    {
+      "id": "sorcier",
+      "nom": "Le Sorcier",
+      "competence_ids": [
+        "inspiration",
+        "priere",
+        "sacrifice",
+        "verbe_sacre"
+      ]
+    },
+    {
+      "id": "guerrier",
+      "nom": "Le Guerrier",
+      "competence_ids": [
+        "arme",
+        "commander",
+        "entrainer",
+        "impressionner"
+      ]
+    },
+    {
+      "id": "poete",
+      "nom": "Le Poète",
+      "competence_ids": [
+        "galvaniser",
+        "comedie",
+        "poesie",
+        "musique"
+      ]
+    },
+    {
+      "id": "malandrin",
+      "nom": "Le Malandrin",
+      "competence_ids": [
+        "assassinat",
+        "detrousser",
+        "discretion",
+        "s_introduire"
+      ]
+    },
+    {
+      "id": "travailleur",
+      "nom": "Le Travailleur",
+      "competence_ids": [
+        "agriculture",
+        "artisanat",
+        "compagnonnage",
+        "tenir_le_coup"
+      ]
+    }
+  ],
+  "competences": [
+    {
+      "id": "epreuve",
+      "nom": "Épreuve",
+      "figure_id": "aventurer"
+    },
+    {
+      "id": "equitation",
+      "nom": "Équitation",
+      "figure_id": "aventurer"
+    },
+    {
+      "id": "contes",
+      "nom": "Contes",
+      "figure_id": "aventurer"
+    },
+    {
+      "id": "periple",
+      "nom": "Périples",
+      "figure_id": "aventurer"
+    },
+    {
+      "id": "science",
+      "nom": "Science",
+      "figure_id": "sage"
+    },
+    {
+      "id": "enseigner",
+      "nom": "Enseigner",
+      "figure_id": "sage"
+    },
+    {
+      "id": "ppl_histoire",
+      "nom": "Peuples et histoire",
+      "figure_id": "sage"
+    },
+    {
+      "id": "percevoir",
+      "nom": "Percevoir",
+      "figure_id": "sage"
+    },
+    {
+      "id": "npplf",
+      "nom": "Ne pas perdre la face",
+      "figure_id": "prince"
+    },
+    {
+      "id": "elegance",
+      "nom": "Élégance",
+      "figure_id": "prince"
+    },
+    {
+      "id": "flatter",
+      "nom": "Flatter",
+      "figure_id": "prince"
+    },
+    {
+      "id": "negoce",
+      "nom": "Négoce",
+      "figure_id": "prince"
+    },
+    {
+      "id": "inspiration",
+      "nom": "Inspiration",
+      "figure_id": "sorcier"
+    },
+    {
+      "id": "priere",
+      "nom": "Prière",
+      "figure_id": "sorcier"
+    },
+    {
+      "id": "sacrifice",
+      "nom": "Sacrifice",
+      "figure_id": "sorcier"
+    },
+    {
+      "id": "verbe_sacre",
+      "nom": "Verbe sacré",
+      "figure_id": "sorcier"
+    },
+    {
+      "id": "arme",
+      "nom": "Arme",
+      "figure_id": "guerrier"
+    },
+    {
+      "id": "commander",
+      "nom": "Commander",
+      "figure_id": "guerrier"
+    },
+    {
+      "id": "entrainer",
+      "nom": "Entraîner",
+      "figure_id": "guerrier"
+    },
+    {
+      "id": "impressionner",
+      "nom": "Impressionner",
+      "figure_id": "guerrier"
+    },
+    {
+      "id": "galvaniser",
+      "nom": "Galvaniser",
+      "figure_id": "poete"
+    },
+    {
+      "id": "comedie",
+      "nom": "Comédie",
+      "figure_id": "poete"
+    },
+    {
+      "id": "poesie",
+      "nom": "Poésie",
+      "figure_id": "poete"
+    },
+    {
+      "id": "musique",
+      "nom": "Musique",
+      "figure_id": "poete"
+    },
+    {
+      "id": "assassinat",
+      "nom": "Assassinat",
+      "figure_id": "malandrin"
+    },
+    {
+      "id": "detrousser",
+      "nom": "Détrousser",
+      "figure_id": "malandrin"
+    },
+    {
+      "id": "discretion",
+      "nom": "Discrétion",
+      "figure_id": "malandrin"
+    },
+    {
+      "id": "s_introduire",
+      "nom": "S'introduire",
+      "figure_id": "malandrin"
+    },
+    {
+      "id": "agriculture",
+      "nom": "Agriculture",
+      "figure_id": "travailleur"
+    },
+    {
+      "id": "artisanat",
+      "nom": "Artisanat",
+      "figure_id": "travailleur"
+    },
+    {
+      "id": "compagnonnage",
+      "nom": "Compagnonnage",
+      "figure_id": "travailleur"
+    },
+    {
+      "id": "tenir_le_coup",
+      "nom": "Tenir le coup",
+      "figure_id": "travailleur"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "nom": "Samir",
+  "sang_id": "saabi",
+  "origine_id": "malik",
+  "parole_id": "cimeterres_feu",
+  "choix_bonus": {"origine:malik:0": "coordination"},
+  "vertus": {"bravoure": 4, "foi": 3, "fidelite": 3},
+  "points_caracteristiques": {"coordination": 1, "charme": 1, "puissance": 2, "souffle": 1, "sagesse": 1},
+  "ordre_figures": ["guerrier", "aventurer", "sage", "prince", "sorcier", "poete", "malandrin", "travailleur"],
+  "points_competences": {"percevoir": 2, "discretion": 2, "contes": 1}
+}

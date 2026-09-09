@@ -1,0 +1,37 @@
+{
+  "version_schema": "1.0.0",
+  "provenance": "Transcription manuelle du HTML publié et des formules JavaScript, inchangées dans master. Le catalogue des bonus utilise data/source/caph.js au commit 7add31f37fa9715876f44ffba6e2c3d5a9d51c6e, incluant la correction 2018 de soupcon_traitres. Règles non vérifiées dans le livre de jeu.",
+  "vertus": {"points": 10, "minimum": 1, "maximum": 6},
+  "caracteristiques": {"base": 1, "points_libres": 6, "maximum_creation": 4},
+  "competences": {
+    "base_defaut": 0,
+    "bases": {"negoce": 1, "inspiration": 1, "priere": 1, "tenir_le_coup": 1},
+    "bonus_par_rang_figure": [3, 2, 1, 1, 1, 0, 0, 0],
+    "points_libres": 5,
+    "maximum_ajout_par_competence": 2,
+    "maximum_creation": 5,
+    "excedent_bonus": "Les points dépassant 5 avant la répartition libre sont ajoutés au budget de points libres."
+  },
+  "statistiques": {
+    "heroisme": "floor((bravoure + foi + fidelite) / 3)",
+    "pv": "10 * souffle",
+    "initiative_max": "1 + floor((coordination + souffle + sagesse) / 3)",
+    "trempe": "souffle + heroisme",
+    "defense_passive": "coordination + epreuve + 6"
+  },
+  "paroles": {"restriction_origine": false, "explication": "Le site propose toutes les Paroles, quelle que soit l'origine choisie. Les rattachements sont conservés comme métadonnées ; leur valeur de prérequis n'est pas établie."},
+  "finitions_manquantes": [
+    {"id": "table_sang", "tirages": 2},
+    {"id": "table_figure_principale", "tirages": 1},
+    {"id": "table_figures", "tirages": 2},
+    {"id": "table_heritage_dragons", "tirages": 1},
+    {"id": "equipement", "tirages": null},
+    {"id": "richesse", "tirages": null}
+  ],
+  "divergences_source": [
+    "Caractéristiques : consigne affichée à 4 maximum, attribut HTML max à 5. L'API applique 4.",
+    "Compétences : consigne affichée à 5 maximum et 2 points libres par compétence ; contrôles HTML et JavaScript plus permissifs. L'API applique la consigne.",
+    "Le code transfère les excédents de compétences vers les points libres, même si ce mécanisme n'est pas expliqué dans le texte HTML.",
+    "L'identifiant de l'Aventurier est aventurer dans la source ; il est conservé pour la traçabilité."
+  ]
+}

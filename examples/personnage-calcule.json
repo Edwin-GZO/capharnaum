@@ -1,0 +1,91 @@
+{
+  "nom": "Samir",
+  "sang": {
+    "id": "saabi",
+    "nom": "Saabi"
+  },
+  "origine": {
+    "id": "malik",
+    "nom": "Ibn Malik Abd-al-Hassan"
+  },
+  "parole": {
+    "id": "cimeterres_feu",
+    "nom": "Le Sentier de cimeterres de feu"
+  },
+  "vertus": {
+    "bravoure": 4,
+    "foi": 3,
+    "fidelite": 3
+  },
+  "caracteristiques": {
+    "coordination": 4,
+    "charme": 2,
+    "puissance": 3,
+    "souffle": 2,
+    "sagesse": 2
+  },
+  "competences": {
+    "epreuve": 3,
+    "equitation": 2,
+    "contes": 3,
+    "periple": 2,
+    "science": 1,
+    "enseigner": 1,
+    "ppl_histoire": 1,
+    "percevoir": 3,
+    "npplf": 1,
+    "elegance": 1,
+    "flatter": 1,
+    "negoce": 2,
+    "inspiration": 2,
+    "priere": 2,
+    "sacrifice": 1,
+    "verbe_sacre": 2,
+    "arme": 5,
+    "commander": 4,
+    "entrainer": 4,
+    "impressionner": 3,
+    "galvaniser": 0,
+    "comedie": 0,
+    "poesie": 0,
+    "musique": 0,
+    "assassinat": 0,
+    "detrousser": 0,
+    "discretion": 2,
+    "s_introduire": 0,
+    "agriculture": 0,
+    "artisanat": 0,
+    "compagnonnage": 0,
+    "tenir_le_coup": 1
+  },
+  "ordre_figures": [
+    "guerrier",
+    "aventurer",
+    "sage",
+    "prince",
+    "sorcier",
+    "poete",
+    "malandrin",
+    "travailleur"
+  ],
+  "statistiques": {
+    "heroisme": 3,
+    "pv": 20,
+    "initiative_max": 3,
+    "trempe": 5,
+    "defense_passive": 13
+  },
+  "repartition": {
+    "points_competences": 5,
+    "excedent_competences": 0
+  },
+  "statut": "creation_hors_finitions",
+  "finitions_manquantes": [
+    "table_sang",
+    "table_figure_principale",
+    "table_figures",
+    "table_heritage_dragons",
+    "equipement",
+    "richesse"
+  ]
+}

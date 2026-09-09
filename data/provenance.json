@@ -1,0 +1,41 @@
+{
+  "site": "https://tut-tuuut.github.io/capharnaum-character-creator/",
+  "depot": "https://github.com/tut-tuuut/capharnaum-character-creator",
+  "commit_javascript": "7add31f37fa9715876f44ffba6e2c3d5a9d51c6e",
+  "version_donnees": "JavaScript de master avec la correction 2018 de soupcon_traitres ; HTML du site publié.",
+  "archive_site": "source/caph-gh-pages.js est conservé pour comparaison et n'est pas utilisé par l'extraction ni le frontend.",
+  "fichiers": [
+    {
+      "fichier": "source/index.html",
+      "url": "https://tut-tuuut.github.io/capharnaum-character-creator/",
+      "sha256": "813bd912d8caeb331329364a3bc251aede9e3ea1d0c7da12ed341091a8ee1321"
+    },
+    {
+      "fichier": "source/caph.js",
+      "url": "https://raw.githubusercontent.com/tut-tuuut/capharnaum-character-creator/7add31f37fa9715876f44ffba6e2c3d5a9d51c6e/javascripts/caph.js",
+      "sha256": "0787b5ba991d62fa1384b0cc371d0c504ec889f48b8f27b2d53d8089c6972bc9"
+    },
+    {
+      "fichier": "source/caph-gh-pages.js",
+      "url": "https://tut-tuuut.github.io/capharnaum-character-creator/javascripts/caph.js",
+      "sha256": "8ffa5f151afe358567cb4c33106a824f78ec808b979383dfc0bbf738e6bbcec2"
+    },
+    {
+      "fichier": "source/app.js",
+      "url": "https://tut-tuuut.github.io/capharnaum-character-creator/javascripts/app.js",
+      "sha256": "68d15cd885454e37efa693d2a0afe9ad8ea6eac16908f177f02f831f8540ff69"
+    },
+    {
+      "fichier": "source/bonus_figures.png",
+      "url": "https://tut-tuuut.github.io/capharnaum-character-creator/images/bonus_figures.png",
+      "sha256": "c7c517b9bd2910139ef9cccbae769346480e163f4430939055cf94251805761f"
+    },
+    {
+      "fichier": "source/repository-tree.json",
+      "url": "https://api.github.com/repos/tut-tuuut/capharnaum-character-creator/git/trees/master?recursive=1",
+      "sha256": "8652ae472598917beed09637f3d2ac9cdc25236a6b6ad67342f3d803d994f387"
+    }
+  ],
+  "methode": "Analyse des objets et tableaux littéraux JavaScript et des libellés HTML, sans exécution du code source.",
+  "regles": "Transcription manuelle documentée séparément dans regles.json ; non extraite automatiquement."
+}

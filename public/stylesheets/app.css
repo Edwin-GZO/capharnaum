@@ -1,0 +1,46 @@
+/* Artfully masterminded by ZURB  */
+
+#figures {
+	list-style-type: none;
+	background: url(../images/bonus_figures.png) 85% 0 no-repeat;
+}
+#figures li {
+	background: #eee;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin-bottom: 2px;
+	padding: 0 1em;
+	width: 75%;
+	cursor: move;
+}
+#figures li:hover {
+	background-color: #e4e4e4;
+}
+#competences input.ok {
+	border-color: #4cc24c;
+}
+#competences input.ko {
+	border-color: #ec5b5b;
+}
+
+.repartition_compte {
+	text-align:right;
+	color: #2BA6CB;
+}
+
+.generation-aleatoire { margin-bottom: 20px; }
+.generation-aleatoire .button { margin-bottom: 10px; }
+.generation-aleatoire p { margin-bottom: 6px; }
+#generation-aide { color: #555; }
+#generation-statut { color: #276b37; }
+#generation-statut.erreur { color: #a62121; }
+#pdf-statut { color: #276b37; }
+#pdf-statut.erreur { color: #a62121; }
+#nom-personnage { max-width: 400px; }
+.generation-aleatoire .button:disabled { opacity: .65; cursor: wait; }
+.remerciements { margin-top: 24px; margin-bottom: 24px; padding-top: 16px; border-top: 1px solid #ddd; color: #555; }
+.remerciements p { margin-bottom: 8px; }
+.remerciements a { color: #176b85; text-decoration: underline; }
+@media only screen and (max-width: 767px) {
+  .generation-aleatoire .button { width: 100%; }
+}
