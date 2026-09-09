@@ -212,7 +212,7 @@ export async function startApp({ port = 3000, host = '127.0.0.1', fallback = fal
   }
 }
 
-async function startPassengerApp(passenger) {
+export async function startPassengerApp(passenger) {
   passenger.configure({ autoInstall: false });
   const app = createApp();
   await new Promise((resolve, reject) => {

@@ -61,7 +61,7 @@ Le serveur accepte le préfixe configuré par `BASE_PATH`. Pour publier le proje
 - **Application mode** : Production ;
 - **Application root** : un dossier dédié placé hors du dossier public du domaine ;
 - **Application URL** : `fantome-dev.fr`, avec l’URI `/capharnaum` ;
-- **Application startup file** : `src/server.js` ;
+- **Application startup file** : `app.js` ;
 - variable d’environnement **BASE_PATH** : `/capharnaum` ;
 - variable d’environnement **TRUST_PROXY** : `1`.
 
