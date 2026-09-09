@@ -176,7 +176,7 @@ test('chaque bonus et relation référence une donnée existante', () => {
 });
 
 test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
-  const app = createApp();
+  const app = createApp({ development: true });
   await new Promise((resolve, reject) => { app.once('error', reject); app.listen(0, '127.0.0.1', resolve); });
   t.after(() => new Promise(resolve => { app.closeAllConnections(); app.close(resolve); }));
   const base = `http://127.0.0.1:${app.address().port}`;
@@ -225,6 +225,7 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.equal(pdfResponse.status, 200);
   assert.equal(pdfResponse.headers.get('content-type'), 'application/pdf');
   assert.match(pdfResponse.headers.get('content-disposition'), /attachment/);
+  assert.equal(pdfResponse.headers.get('x-pdf-cache'), 'MISS');
   const pdf = await PDFDocument.load(await pdfResponse.arrayBuffer());
   assert.equal(pdf.getPageCount(), 2);
   const invalidPdf = await fetch(base + '/api/personnages/pdf', {
@@ -242,4 +243,45 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.equal((await post(' '.repeat(65537))).status, 413);
   assert.equal((await fetch(base + '/api/personnages/calculer', { method: 'POST', body: '{}' })).status, 415);
   assert.equal((await get('/inconnue')).status, 404);
+});
+
+test('mode production : cache HTTP, cache PDF, CORS, sécurité et limitation', async t => {
+  const app = createApp({ development: false, pdfCacheSize: 2, pdfRateLimit: 2 });
+  await new Promise((resolve, reject) => { app.once('error', reject); app.listen(0, '127.0.0.1', resolve); });
+  t.after(() => new Promise(resolve => { app.closeAllConnections(); app.close(resolve); }));
+  const base = `http://127.0.0.1:${app.address().port}`;
+
+  const front = await fetch(base + '/');
+  assert.equal(front.status, 200);
+  assert.match(front.headers.get('content-security-policy'), /object-src 'none'/);
+  assert.equal(front.headers.get('x-frame-options'), 'SAMEORIGIN');
+  assert.equal((await fetch(base + '/__dev/version')).status, 404);
+
+  const asset = await fetch(base + '/stylesheets/app.css');
+  assert.equal(asset.headers.get('cache-control'), 'public, max-age=3600');
+  const notModified = await fetch(base + '/stylesheets/app.css', {
+    headers: { 'if-none-match': asset.headers.get('etag') },
+  });
+  assert.equal(notModified.status, 304);
+
+  const preflight = await fetch(base + '/api/personnages/pdf', { method: 'OPTIONS' });
+  assert.equal(preflight.status, 204);
+  assert.equal(preflight.headers.get('access-control-allow-origin'), '*');
+  const catalogueResponse = await fetch(base + '/api/catalogue');
+  assert.equal(catalogueResponse.headers.get('cache-control'), 'public, max-age=300');
+
+  const request = () => fetch(base + '/api/personnages/pdf', {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(example()),
+  });
+  const first = await request();
+  assert.equal(first.status, 200);
+  assert.equal(first.headers.get('x-pdf-cache'), 'MISS');
+  await first.arrayBuffer();
+  const cached = await request();
+  assert.equal(cached.status, 200);
+  assert.equal(cached.headers.get('x-pdf-cache'), 'HIT');
+  await cached.arrayBuffer();
+  const limited = await request();
+  assert.equal(limited.status, 429);
+  assert.equal(limited.headers.get('retry-after'), '60');
 });

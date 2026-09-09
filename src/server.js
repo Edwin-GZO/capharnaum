@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { catalogue, regles } from './catalogue.js';
 import { calculerPersonnage, ValidationError } from './personnage.js';
@@ -7,24 +8,108 @@ import { genererPersonnage } from './aleatoire.js';
 import { genererPdf } from './pdf.js';
 
 const versionServeur = `${Date.now()}-${process.pid}`;
+const modeDeveloppement = process.env.NODE_ENV === 'development';
+
+function securiser(res) {
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'self'");
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+}
 
 function json(res, status, body) {
+  if (!res.hasHeader('Cache-Control')) res.setHeader('Cache-Control', 'no-store');
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
   res.end(JSON.stringify(body));
 }
 
-export function createApp() {
-  const serveStatic = createStaticHandler();
-  return createServer(async (req, res) => {
+function creerCachePdf(limit) {
+  const entries = new Map();
+  return async (key, factory) => {
+    if (limit <= 0) return { pdf: await factory(), cache: 'BYPASS' };
+    if (entries.has(key)) {
+      const pending = entries.get(key);
+      entries.delete(key);
+      entries.set(key, pending);
+      return { pdf: await pending, cache: 'HIT' };
+    }
+    const pending = Promise.resolve().then(factory);
+    entries.set(key, pending);
+    while (entries.size > limit) entries.delete(entries.keys().next().value);
     try {
+      return { pdf: await pending, cache: 'MISS' };
+    } catch (error) {
+      if (entries.get(key) === pending) entries.delete(key);
+      throw error;
+    }
+  };
+}
+
+function creerLimiteur(limit, fenetreMs) {
+  const clients = new Map();
+  return key => {
+    if (limit <= 0) return 0;
+    const now = Date.now();
+    let entry = clients.get(key);
+    if (!entry || entry.reset <= now) entry = { count: 0, reset: now + fenetreMs };
+    entry.count++;
+    clients.delete(key);
+    clients.set(key, entry);
+    while (clients.size > 10000) clients.delete(clients.keys().next().value);
+    return entry.count > limit ? Math.max(1, Math.ceil((entry.reset - now) / 1000)) : 0;
+  };
+}
+
+function adresseClient(req, trustProxy) {
+  if (trustProxy) {
+    const forwarded = req.headers['x-forwarded-for'];
+    if (typeof forwarded === 'string' && forwarded.trim()) return forwarded.split(',')[0].trim();
+  }
+  return req.socket.remoteAddress ?? 'inconnue';
+}
+
+function entierEnvironnement(name, fallback, min, max) {
+  if (process.env[name] === undefined) return fallback;
+  const value = Number(process.env[name]);
+  return Number.isInteger(value) && value >= min && value <= max ? value : fallback;
+}
+
+export function createApp(options = {}) {
+  const development = options.development ?? modeDeveloppement;
+  const pdfCacheSize = options.pdfCacheSize ?? entierEnvironnement('PDF_CACHE_SIZE', 32, 0, 256);
+  const pdfRateLimit = options.pdfRateLimit ?? entierEnvironnement('PDF_RATE_LIMIT', development ? 0 : 30, 0, 1000);
+  const rateWindowMs = options.rateWindowMs ?? entierEnvironnement('PDF_RATE_WINDOW_MS', 60000, 1000, 3600000);
+  const trustProxy = options.trustProxy ?? process.env.TRUST_PROXY === '1';
+  const serveStatic = createStaticHandler({ development });
+  const obtenirPdf = creerCachePdf(pdfCacheSize);
+  const limiterPdf = creerLimiteur(pdfRateLimit, rateWindowMs);
+  const catalogueJson = (res, body) => {
+    if (!development) res.setHeader('Cache-Control', 'public, max-age=300');
+    return json(res, 200, body);
+  };
+  const app = createServer(async (req, res) => {
+    try {
+      securiser(res);
       const url = new URL(req.url, 'http://localhost');
+      if (url.pathname.startsWith('/api/')) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        if (req.method === 'OPTIONS') {
+          res.writeHead(204, {
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Max-Age': '86400',
+          });
+          return res.end();
+        }
+      }
       if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { status: 'ok' });
-      if (req.method === 'GET' && url.pathname === '/__dev/version') {
+      if (development && req.method === 'GET' && url.pathname === '/__dev/version') {
         res.setHeader('Cache-Control', 'no-store');
         return json(res, 200, { version: versionServeur });
       }
-      if (req.method === 'GET' && url.pathname === '/api/regles') return json(res, 200, regles);
-      if (req.method === 'GET' && url.pathname === '/api/catalogue') return json(res, 200, catalogue);
+      if (req.method === 'GET' && url.pathname === '/api/regles') return catalogueJson(res, regles);
+      if (req.method === 'GET' && url.pathname === '/api/catalogue') return catalogueJson(res, catalogue);
       if (req.method === 'POST' && url.pathname === '/api/personnages/aleatoire') return json(res, 200, genererPersonnage());
       const resource = url.pathname.match(/^\/api\/(sangs|origines|paroles|figures|competences|caracteristiques|vertus)$/)?.[1];
       if (req.method === 'GET' && resource) {
@@ -32,9 +117,16 @@ export function createApp() {
         const filters = { origines: ['sang_id'], paroles: ['sang_id', 'origine_id'], competences: ['figure_id'] }[resource] ?? [];
         for (const key of url.searchParams.keys()) if (!filters.includes(key)) return json(res, 400, { erreur: `Filtre inconnu : ${key}.` });
         for (const key of filters) if (url.searchParams.has(key)) values = values.filter(item => item[key] === url.searchParams.get(key));
-        return json(res, 200, values);
+        return catalogueJson(res, values);
       }
       if (req.method === 'POST' && ['/api/personnages/calculer', '/api/personnages/pdf'].includes(url.pathname)) {
+        if (url.pathname === '/api/personnages/pdf') {
+          const retryAfter = limiterPdf(adresseClient(req, trustProxy));
+          if (retryAfter) {
+            res.setHeader('Retry-After', retryAfter);
+            return json(res, 429, { erreur: 'Trop de générations PDF. Réessaie dans quelques instants.' });
+          }
+        }
         if (req.headers['content-type']?.split(';')[0].trim().toLowerCase() !== 'application/json') return json(res, 415, { erreur: 'Utiliser Content-Type: application/json.' });
         const chunks = [];
         let size = 0;
@@ -46,16 +138,19 @@ export function createApp() {
           }
           chunks.push(chunk);
         }
+        const body = Buffer.concat(chunks);
         let input;
-        try { input = JSON.parse(Buffer.concat(chunks).toString('utf8')); }
+        try { input = JSON.parse(body.toString('utf8')); }
         catch { return json(res, 400, { erreur: 'JSON invalide.' }); }
         if (url.pathname === '/api/personnages/pdf') {
-          const pdf = await genererPdf(input);
+          const key = createHash('sha256').update(body).digest('base64url');
+          const { pdf, cache } = await obtenirPdf(key, () => genererPdf(input));
           res.writeHead(200, {
             'Content-Type': 'application/pdf',
             'Content-Disposition': 'attachment; filename="personnage-capharnaum.pdf"',
             'Content-Length': pdf.length,
             'Cache-Control': 'no-store',
+            'X-PDF-Cache': cache,
           });
           return res.end(Buffer.from(pdf));
         }
@@ -70,6 +165,12 @@ export function createApp() {
       else res.end();
     }
   });
+  app.requestTimeout = 15000;
+  app.headersTimeout = 10000;
+  app.keepAliveTimeout = 5000;
+  app.maxHeadersCount = 100;
+  app.maxRequestsPerSocket = 1000;
+  return app;
 }
 
 export async function startApp({ port = 3000, host = '127.0.0.1', fallback = false } = {}) {
@@ -96,12 +197,23 @@ export async function startApp({ port = 3000, host = '127.0.0.1', fallback = fal
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const port = Number(process.env.PORT ?? 3000);
-  const host = process.env.HOST ?? '127.0.0.1';
+  const host = process.env.HOST ?? (modeDeveloppement ? '127.0.0.1' : '0.0.0.0');
   try {
-    const app = await startApp({ port, host, fallback: process.env.PORT === undefined });
+    const app = await startApp({ port, host, fallback: modeDeveloppement && process.env.PORT === undefined });
     const actualPort = app.address().port;
     if (port !== 0 && actualPort !== port) console.log(`Port ${port} occupé ; démarrage sur le port ${actualPort}.`);
-    console.log(`Capharnaüm — interface et API : http://${host.includes(':') ? `[${host}]` : host}:${actualPort}`);
+    const displayedHost = host === '0.0.0.0' ? '127.0.0.1' : host;
+    console.log(`Capharnaüm — interface et API : http://${displayedHost.includes(':') ? `[${displayedHost}]` : displayedHost}:${actualPort} (${modeDeveloppement ? 'développement' : 'production'})`);
+    let stopping = false;
+    const stop = signal => {
+      if (stopping) return;
+      stopping = true;
+      console.log(`${signal} reçu, arrêt du serveur…`);
+      app.close(() => process.exit(0));
+      setTimeout(() => app.closeAllConnections(), 10000).unref();
+    };
+    process.once('SIGTERM', () => stop('SIGTERM'));
+    process.once('SIGINT', () => stop('SIGINT'));
   } catch (error) {
     console.error(error.code === 'EADDRINUSE'
       ? 'Port occupé. Choisis un autre port, par exemple : PORT=3100 npm start'

@@ -3,24 +3,26 @@
 
   var versionActuelle;
 
+  function lireVersion() {
+    return fetch('/__dev/version', { cache: 'no-store' }).then(function (response) {
+      if (!response.ok) throw new Error('Mode développement désactivé');
+      return response.json();
+    });
+  }
+
   function verifierVersion() {
-    fetch('/__dev/version', { cache: 'no-store' })
-      .then(function (response) {
-        if (!response.ok) throw new Error('Serveur indisponible');
-        return response.json();
-      })
+    lireVersion()
       .then(function (etat) {
-        if (versionActuelle === undefined) {
-          versionActuelle = etat.version;
-        } else if (versionActuelle !== etat.version) {
-          window.location.reload();
-        }
+        if (versionActuelle !== etat.version) window.location.reload();
       })
       .catch(function () {
         // Le serveur peut être brièvement indisponible pendant son redémarrage.
       });
   }
 
-  verifierVersion();
-  window.setInterval(verifierVersion, 1000);
+  // L'endpoint n'existe qu'en développement : aucune interrogation périodique en production.
+  lireVersion().then(function (etat) {
+    versionActuelle = etat.version;
+    window.setInterval(verifierVersion, 1000);
+  }).catch(function () {});
 }());

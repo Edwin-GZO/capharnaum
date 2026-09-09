@@ -1,0 +1,12 @@
+.git
+.gitignore
+.env
+.venv
+node_modules
+__pycache__
+coverage
+docs
+examples
+scripts
+tests
+*.log

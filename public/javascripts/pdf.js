@@ -101,7 +101,7 @@ jQuery(function ($) {
     previewController?.abort();
     previewStatus.className = '';
     previewStatus.textContent = 'Mise à jour de l’aperçu…';
-    previewTimer = setTimeout(() => actualiserApercu(revision), 400);
+    previewTimer = setTimeout(() => actualiserApercu(revision), 900);
   }
 
   const champsSuivis = '#nom-personnage, #sang, #tribu, #parole, #vertus_heroiques input[type=number], #caracteristiques input[type=number], #competences input[type=number]';

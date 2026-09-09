@@ -8,8 +8,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "start": "node --watch --watch-preserve-output --watch-path=src --watch-path=data --watch-path=assets --watch-path=public src/server.js",
-    "start:once": "node src/server.js",
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node --watch --watch-preserve-output --watch-path=src --watch-path=data --watch-path=assets --watch-path=public src/server.js",
     "test": "node --test",
     "extract": "python3 scripts/extract_data.py"
   },
