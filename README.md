@@ -29,7 +29,7 @@ Les points libres de compétence sont investis d'abord dans la figure à +3, pui
 
 Pour remplir le modèle PDF fourni, saisir le nom du personnage, générer ou compléter la fiche, puis cliquer sur **Télécharger la feuille PDF**. L'export reprend les choix et allocations actuels, y compris les modifications manuelles, et les valide côté serveur. Une allocation incomplète ou dépassant les limites affiche une erreur. Le nom peut contenir des lettres latines accentuées ; les caractères non pris en charge (comme les emojis) sont signalés.
 
-Un aperçu du PDF apparaît en bas de la page dès que le personnage est valide. Il est mis à jour automatiquement après les changements apportés à la fiche ; un délai de 400 ms évite de lancer plusieurs générations pendant une même saisie.
+Sur grand écran, la création occupe la colonne de gauche et l’aperçu PDF reste visible dans la colonne de droite. Sur mobile et tablette, les deux parties sont empilées. L’aperçu est mis à jour automatiquement après les changements apportés à la fiche ; un délai de 400 ms évite de lancer plusieurs générations pendant une même saisie.
 
 L'interface dans `public/` conserve les calculs du navigateur pour les modifications manuelles et les limites de validation du site. La génération aléatoire utilise l'API et ses contrôles plus stricts. Les styles Foundation, jQuery, jQuery UI et les images sont inclus localement. Voir `docs/frontend.md` pour la provenance.
 

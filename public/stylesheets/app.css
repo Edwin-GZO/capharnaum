@@ -38,12 +38,30 @@
 #pdf-statut.erreur { color: #a62121; }
 #nom-personnage { max-width: 400px; }
 .generation-aleatoire .button:disabled { opacity: .65; cursor: wait; }
-.apercu-pdf { margin-top: 28px; margin-bottom: 28px; }
+.page-title { max-width: 1800px; padding: 0 20px; }
+.page-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 56fr) minmax(480px, 44fr);
+  gap: 28px;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  align-items: start;
+}
+.creation-panel { min-width: 0; }
+.creation-panel > .row { width: 100%; max-width: none; }
+.apercu-pdf {
+  position: sticky;
+  top: 16px;
+  min-width: 0;
+  margin-bottom: 28px;
+  padding: 0 0 0 4px;
+}
 .apercu-pdf h2 { font-size: 24px; margin-bottom: 8px; }
 #apercu-pdf-statut { color: #555; }
 #apercu-pdf-statut.ok { color: #276b37; }
 #apercu-pdf-statut.erreur { color: #a62121; }
-#apercu-pdf-frame { display: block; width: 100%; height: 900px; border: 1px solid #bbb; background: #eee; }
+#apercu-pdf-frame { display: block; width: 100%; height: calc(100vh - 120px); min-height: 700px; border: 1px solid #bbb; background: #eee; }
 #apercu-pdf-frame[hidden] { display: none; }
 .remerciements { margin-top: 24px; margin-bottom: 24px; padding-top: 16px; border-top: 1px solid #ddd; color: #555; }
 .remerciements p { margin-bottom: 8px; }
@@ -51,4 +69,9 @@
 @media only screen and (max-width: 767px) {
   .generation-aleatoire .button { width: 100%; }
   #apercu-pdf-frame { height: 600px; }
+}
+@media only screen and (max-width: 1199px) {
+  .page-layout { display: block; max-width: 1000px; padding: 0; }
+  .page-title { max-width: 1000px; padding: 0; }
+  .apercu-pdf { position: static; margin-top: 28px; padding: 0; }
 }

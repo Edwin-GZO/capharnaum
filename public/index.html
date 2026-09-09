@@ -32,7 +32,9 @@
 </head>
 <body>
 
-    <h1 class="row">Capharnaüm - fiche de perso web interactive</h1>
+    <h1 class="row page-title">Capharnaüm - fiche de perso web interactive</h1>
+    <main class="page-layout">
+    <div class="creation-panel">
     <div class="row generation-aleatoire">
         <label for="nom-personnage">Nom du personnage</label>
         <input type="text" id="nom-personnage" maxlength="100" placeholder="À nommer" autocomplete="off">
@@ -395,11 +397,13 @@
             </div>
         </fieldset>
     </div>
-    <section class="row apercu-pdf" aria-labelledby="titre-apercu-pdf">
+    </div>
+    <section class="apercu-pdf" aria-labelledby="titre-apercu-pdf">
         <h2 id="titre-apercu-pdf">Aperçu de la feuille PDF</h2>
         <p id="apercu-pdf-statut" role="status" aria-live="polite">Complète ou génère un personnage pour afficher son aperçu.</p>
         <iframe id="apercu-pdf-frame" title="Aperçu de la feuille de personnage PDF" hidden></iframe>
     </section>
+    </main>
     <footer class="row remerciements">
         <p>Merci à <a href="https://tut-tuuut.github.io/">tut-tuuut</a> pour son travail sur le
             <a href="https://tut-tuuut.github.io/capharnaum-character-creator/">créateur de personnages Capharnaüm original</a>,
