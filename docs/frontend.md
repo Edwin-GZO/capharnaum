@@ -22,4 +22,6 @@ Le script remplace à la fois les champs et l'état de `window.perso` afin de pe
 
 Le champ de nom et le bouton « Télécharger la feuille PDF » utilisent `public/javascripts/pdf.js`. Ce script reconstruit une requête de création depuis les choix actuels et les allocations de `window.perso`, puis appelle `POST /api/personnages/pdf`. Le serveur valide et recalcule les scores avant de remplir le modèle. Les erreurs sont affichées dans la page et le PDF se télécharge sans quitter la fiche.
 
+La même feuille est affichée dans un aperçu intégré en bas de la page. Il est régénéré automatiquement 400 ms après une modification du nom, des choix, des vertus, des caractéristiques, des compétences ou de l'ordre des figures. Une nouvelle modification annule la requête précédente. Si la fiche est incomplète ou invalide, l'ancien aperçu est masqué et le message indique ce qui doit être corrigé.
+
 Les navigateurs modernes chargent les scripts, styles et images depuis le serveur local. Le HTML original contient également une référence conditionnelle historique à HTML5 Shiv, destinée uniquement à Internet Explorer antérieur à la version 9.

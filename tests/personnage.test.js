@@ -185,7 +185,9 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   const front = await get('/');
   assert.equal(front.status, 200);
   assert.match(front.headers.get('content-type'), /text\/html/);
-  assert.match(await front.text(), /fiche de perso web interactive/);
+  const frontHtml = await front.text();
+  assert.match(frontHtml, /fiche de perso web interactive/);
+  assert.match(frontHtml, /id="apercu-pdf-frame"/);
   for (const [path, type] of [
     ['/javascripts/caph.js', 'text/javascript'],
     ['/javascripts/foundation.min.js', 'text/javascript'],
