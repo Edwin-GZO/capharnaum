@@ -6,9 +6,23 @@ import { catalogue } from '../src/catalogue.js';
 import { createApp, startApp } from '../src/server.js';
 import { genererPersonnage } from '../src/aleatoire.js';
 import { genererPdf } from '../src/pdf.js';
+import { genererNom, genererNoms } from '../src/noms.js';
 import { PDFDocument } from 'pdf-lib';
 
 const example = () => JSON.parse(readFileSync(new URL('../examples/personnage.json', import.meta.url), 'utf8'));
+
+test('génère des noms complets masculins, féminins et uniques', () => {
+  const tirerPremier = () => 0;
+  assert.deepEqual(genererNom('homme', tirerPremier), { nom: 'Adam ibn Adil', genre: 'homme' });
+  assert.deepEqual(genererNom('femme', tirerPremier), { nom: 'Aïcha bint Adam', genre: 'femme' });
+  const result = genererNoms({ genre: 'aleatoire', nombre: 20 });
+  assert.equal(result.noms.length, 20);
+  assert.equal(new Set(result.noms.map(item => item.nom)).size, 20);
+  assert.ok(result.noms.every(item => ['homme', 'femme'].includes(item.genre)));
+  assert.equal(new Set(genererNoms({ nombre: 20 }, tirerPremier).noms.map(item => item.nom)).size, 20);
+  assert.throws(() => genererNoms({ genre: 'inconnu' }), RangeError);
+  assert.throws(() => genererNoms({ nombre: 21 }), RangeError);
+});
 
 test('remplit le modèle PDF de deux pages avec un nom accentué sans altérer le modèle', async () => {
   const templatePath = new URL('../assets/fiche-personnage-v10ans.pdf', import.meta.url);
@@ -220,6 +234,15 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.equal(randomResponse.status, 200);
   const generated = await randomResponse.json();
   assert.deepEqual(calculerPersonnage(generated.creation), generated.personnage);
+  assert.match(generated.creation.nom, / (?:ibn|bint) /);
+  const namesResponse = await get('/api/noms?genre=femme&nombre=3');
+  assert.equal(namesResponse.status, 200);
+  const names = await namesResponse.json();
+  assert.equal(names.nombre, 3);
+  assert.ok(names.noms.every(item => item.genre === 'femme' && item.nom.includes(' bint ')));
+  assert.equal((await get('/api/noms?genre=inconnu')).status, 400);
+  assert.equal((await get('/api/noms?nombre=0')).status, 400);
+  assert.equal((await get('/api/noms?autre=1')).status, 400);
   const pdfResponse = await fetch(base + '/api/personnages/pdf', {
     method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(generated.creation),
   });

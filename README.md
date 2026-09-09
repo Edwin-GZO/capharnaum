@@ -100,6 +100,7 @@ curl -X POST http://127.0.0.1:3000/api/personnages/calculer \
 | GET | `/api/caracteristiques` | Caractéristiques |
 | GET | `/api/vertus` | Vertus |
 | GET | `/api/regles` | Règles, formules et limites de la source |
+| GET | `/api/noms` | 1 à 20 noms composés localement ; `genre=homme\|femme\|aleatoire`, `nombre=10` |
 | POST | `/api/personnages/calculer` | Validation et calcul ; exemple dans `examples/personnage.json` |
 | POST | `/api/personnages/aleatoire` | Sans corps ; renvoie `creation` (choix et allocations) et `personnage` (scores calculés) |
 | POST | `/api/personnages/pdf` | Même JSON que `/calculer` ; renvoie le modèle rempli en `application/pdf` |
@@ -113,6 +114,7 @@ Les erreurs de validation renvoient HTTP 422 avec `{ "erreur": "…" }`. JSON ma
 - `data/provenance.json` : URLs et empreintes SHA-256 des fichiers sources sauvegardés.
 - `data/source/` : sources utilisées ; `caph.js` vient de `master`, l'ancienne version publiée est archivée dans `caph-gh-pages.js` et n'est pas utilisée.
 - `scripts/extract_data.py` : extraction reproductible des données littérales et libellés HTML ; n'exécute pas le JavaScript distant.
+- `src/noms.js` : générateur indépendant fondé sur une sélection de prénoms courants ; aucune liste de FantasyNameGenerators.com n'est copiée.
 - `docs/modele.md` : structure des bonus, allocations et préparation du PDF.
 
 Pour reconstruire le catalogue **hors ligne** à partir de l'instantané (Python 3.8+) :

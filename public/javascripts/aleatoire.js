@@ -16,6 +16,7 @@ jQuery(function ($) {
 
     // Replace the complete legacy state as well as the fields, so subsequent edits work.
     $('#lapopin').trigger('reveal:close');
+    $('#nom-personnage').val(creation.nom).trigger('input');
     $('#sang').val(sang.id);
     $('#libelle_tribu').text(sang.type_origine);
     const tribuSelect = document.getElementById('tribu');

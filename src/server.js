@@ -6,6 +6,7 @@ import { calculerPersonnage, ValidationError } from './personnage.js';
 import { createStaticHandler } from './static.js';
 import { genererPersonnage } from './aleatoire.js';
 import { genererPdf } from './pdf.js';
+import { genererNoms, genresNoms } from './noms.js';
 
 const versionServeur = `${Date.now()}-${process.pid}`;
 const modeDeveloppement = process.env.NODE_ENV === 'development';
@@ -127,6 +128,18 @@ export function createApp(options = {}) {
       }
       if (req.method === 'GET' && pathname === '/api/regles') return catalogueJson(res, regles);
       if (req.method === 'GET' && pathname === '/api/catalogue') return catalogueJson(res, catalogue);
+      if (req.method === 'GET' && pathname === '/api/noms') {
+        for (const key of url.searchParams.keys()) {
+          if (!['genre', 'nombre'].includes(key)) return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
+        }
+        const genre = url.searchParams.get('genre') ?? 'aleatoire';
+        const nombreTexte = url.searchParams.get('nombre') ?? '10';
+        if (!genresNoms.includes(genre)) return json(res, 400, { erreur: 'genre doit valoir homme, femme ou aleatoire.' });
+        if (!/^\d+$/.test(nombreTexte) || Number(nombreTexte) < 1 || Number(nombreTexte) > 20) {
+          return json(res, 400, { erreur: 'nombre doit être un entier entre 1 et 20.' });
+        }
+        return json(res, 200, genererNoms({ genre, nombre: Number(nombreTexte) }));
+      }
       if (req.method === 'POST' && pathname === '/api/personnages/aleatoire') return json(res, 200, genererPersonnage());
       const resource = pathname.match(/^\/api\/(sangs|origines|paroles|figures|competences|caracteristiques|vertus)$/)?.[1];
       if (req.method === 'GET' && resource) {
