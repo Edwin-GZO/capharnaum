@@ -188,9 +188,16 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   const frontHtml = await front.text();
   assert.match(frontHtml, /fiche de perso web interactive/);
   assert.match(frontHtml, /id="apercu-pdf-frame"/);
+  assert.match(frontHtml, /javascripts\/rechargement\.js/);
+  assert.equal(front.headers.get('cache-control'), 'no-cache');
+  const version = await get('/__dev/version');
+  assert.equal(version.status, 200);
+  assert.equal(version.headers.get('cache-control'), 'no-store');
+  assert.match((await version.json()).version, /^\d+-\d+$/);
   for (const [path, type] of [
     ['/javascripts/caph.js', 'text/javascript'],
     ['/javascripts/foundation.min.js', 'text/javascript'],
+    ['/javascripts/rechargement.js', 'text/javascript'],
     ['/stylesheets/app.css', 'text/css'],
     ['/images/bonus_figures.png', 'image/png'],
   ]) {

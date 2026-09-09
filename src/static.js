@@ -35,6 +35,7 @@ export function createStaticHandler() {
     res.writeHead(200, {
       'Content-Type': types[extname(path)],
       'Content-Length': content.length,
+      'Cache-Control': 'no-cache',
       'X-Content-Type-Options': 'nosniff',
     });
     res.end(req.method === 'HEAD' ? undefined : content);

@@ -6,6 +6,8 @@ import { createStaticHandler } from './static.js';
 import { genererPersonnage } from './aleatoire.js';
 import { genererPdf } from './pdf.js';
 
+const versionServeur = `${Date.now()}-${process.pid}`;
+
 function json(res, status, body) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
   res.end(JSON.stringify(body));
@@ -17,6 +19,10 @@ export function createApp() {
     try {
       const url = new URL(req.url, 'http://localhost');
       if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { status: 'ok' });
+      if (req.method === 'GET' && url.pathname === '/__dev/version') {
+        res.setHeader('Cache-Control', 'no-store');
+        return json(res, 200, { version: versionServeur });
+      }
       if (req.method === 'GET' && url.pathname === '/api/regles') return json(res, 200, regles);
       if (req.method === 'GET' && url.pathname === '/api/catalogue') return json(res, 200, catalogue);
       if (req.method === 'POST' && url.pathname === '/api/personnages/aleatoire') return json(res, 200, genererPersonnage());

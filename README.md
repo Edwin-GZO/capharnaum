@@ -17,6 +17,8 @@ npm start
 
 Ouvrir **http://127.0.0.1:3000/** dans le navigateur pour utiliser l'interface originale : sélection du Sang, de l'origine et de la Parole, répartition des points, classement des figures par glisser-déposer et calcul des statistiques.
 
+Pendant le développement, `npm start` surveille automatiquement `src/`, `data/`, `assets/` et `public/`. Le serveur redémarre après chaque modification et la page ouverte dans le navigateur se recharge dès qu'il est de nouveau disponible. Pour lancer le serveur sans surveillance : `npm run start:once`.
+
 L'API est disponible sur le même serveur. Variables facultatives : `PORT` et `HOST`. Cette première version calcule les personnages sans les stocker.
 
 Si le port 3000 est occupé, `npm start` essaie automatiquement les ports suivants, jusqu'à 3010, et affiche l'adresse à ouvrir. Pour imposer un port : `PORT=3100 npm start`. Un port explicitement choisi est respecté ; s'il est occupé, le serveur affiche une erreur claire.
