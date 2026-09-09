@@ -12,7 +12,7 @@ jQuery(function ($) {
 
   function lireCatalogue() {
     if (!cataloguePromise) {
-      cataloguePromise = fetch('/api/catalogue').then(response => {
+      cataloguePromise = fetch(window.urlCapharnaum('/api/catalogue')).then(response => {
         if (!response.ok) throw new Error('Impossible de charger le catalogue.');
         return response.json();
       }).catch(error => {
@@ -51,7 +51,7 @@ jQuery(function ($) {
   }
 
   async function demanderPdf(creation, signal) {
-    const response = await fetch('/api/personnages/pdf', {
+    const response = await fetch(window.urlCapharnaum('/api/personnages/pdf'), {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(creation), signal,
     });
     if (!response.ok) {

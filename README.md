@@ -53,6 +53,20 @@ En production, les fichiers statiques utilisent ETag et un cache navigateur, et 
 
 Variables de réglage : `PDF_CACHE_SIZE` (0 à 256), `PDF_RATE_LIMIT` (0 désactive la limite), `PDF_RATE_WINDOW_MS` (1 000 à 3 600 000 ms). Définir `TRUST_PROXY=1` uniquement derrière un reverse proxy fiable qui renseigne lui-même `X-Forwarded-For` ; la limitation utilisera alors l’adresse transmise.
 
+### Déploiement o2switch sous `/capharnaum`
+
+Le serveur accepte le préfixe configuré par `BASE_PATH`. Pour publier le projet sur `https://fantome-dev.fr/capharnaum/`, créer une application dans **Setup Node.js App** avec les réglages suivants :
+
+- **Node.js version** : 22 ;
+- **Application mode** : Production ;
+- **Application root** : un dossier dédié placé hors du dossier public du domaine ;
+- **Application URL** : `fantome-dev.fr`, avec l’URI `/capharnaum` ;
+- **Application startup file** : `src/server.js` ;
+- variable d’environnement **BASE_PATH** : `/capharnaum` ;
+- variable d’environnement **TRUST_PROXY** : `1`.
+
+Cloner ou transférer le dépôt dans l’Application root, puis utiliser l’action cPanel d’installation NPM ou lancer `npm ci --omit=dev` dans l’environnement Node.js indiqué par cPanel. Passenger fournit lui-même le point d’écoute : il ne faut pas lancer `npm start` manuellement sur o2switch. Après l’installation, redémarrer l’application depuis **Setup Node.js App**.
+
 L'interface dans `public/` conserve les calculs du navigateur pour les modifications manuelles et les limites de validation du site. La génération aléatoire utilise l'API et ses contrôles plus stricts. Les styles Foundation, jQuery, jQuery UI et les images sont inclus localement. Voir `docs/frontend.md` pour la provenance.
 
 ```sh

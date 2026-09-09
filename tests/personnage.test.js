@@ -197,6 +197,7 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.equal(version.headers.get('cache-control'), 'no-store');
   assert.match((await version.json()).version, /^\d+-\d+$/);
   for (const [path, type] of [
+    ['/javascripts/config.js', 'text/javascript'],
     ['/javascripts/caph.js', 'text/javascript'],
     ['/javascripts/foundation.min.js', 'text/javascript'],
     ['/javascripts/rechargement.js', 'text/javascript'],
@@ -284,4 +285,23 @@ test('mode production : cache HTTP, cache PDF, CORS, sécurité et limitation', 
   const limited = await request();
   assert.equal(limited.status, 429);
   assert.equal(limited.headers.get('retry-after'), '60');
+});
+
+test('fonctionne sous le chemin /capharnaum prévu pour o2switch', async t => {
+  const app = createApp({ development: true, basePath: '/capharnaum' });
+  await new Promise((resolve, reject) => { app.once('error', reject); app.listen(0, '127.0.0.1', resolve); });
+  t.after(() => new Promise(resolve => { app.closeAllConnections(); app.close(resolve); }));
+  const base = `http://127.0.0.1:${app.address().port}`;
+
+  const redirect = await fetch(base + '/capharnaum', { redirect: 'manual' });
+  assert.equal(redirect.status, 308);
+  assert.equal(redirect.headers.get('location'), '/capharnaum/');
+  const front = await fetch(base + '/capharnaum/');
+  assert.equal(front.status, 200);
+  assert.match(await front.text(), /javascripts\/config\.js/);
+  assert.equal((await fetch(base + '/capharnaum/javascripts/config.js')).status, 200);
+  assert.equal((await fetch(base + '/capharnaum/api/catalogue')).status, 200);
+  assert.equal((await fetch(base + '/capharnaum/__dev/version')).status, 200);
+  assert.equal((await fetch(base + '/capharnaum-autre')).status, 404);
+  assert.throws(() => createApp({ basePath: 'capharnaum' }), /BASE_PATH/);
 });

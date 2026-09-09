@@ -3,7 +3,7 @@ jQuery(function ($) {
   const status = document.getElementById('generation-statut');
 
   async function lire(url, options) {
-    const response = await fetch(url, options);
+    const response = await fetch(window.urlCapharnaum(url), options);
     if (!response.ok) throw new Error('La génération a échoué. Réessaie dans un instant.');
     return response.json();
   }

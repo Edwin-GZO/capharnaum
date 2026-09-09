@@ -4,7 +4,7 @@
   var versionActuelle;
 
   function lireVersion() {
-    return fetch('/__dev/version', { cache: 'no-store' }).then(function (response) {
+    return fetch(window.urlCapharnaum('/__dev/version'), { cache: 'no-store' }).then(function (response) {
       if (!response.ok) throw new Error('Mode développement désactivé');
       return response.json();
     });
