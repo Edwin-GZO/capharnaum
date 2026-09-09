@@ -25,4 +25,5 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - run: bash -n scripts/deploy-o2switch.sh
       - run: docker build -t capharnaum:test .

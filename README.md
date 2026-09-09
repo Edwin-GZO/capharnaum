@@ -67,6 +67,14 @@ Le serveur accepte le préfixe configuré par `BASE_PATH`. Pour publier le proje
 
 Cloner ou transférer le dépôt dans l’Application root, puis utiliser l’action cPanel d’installation NPM ou lancer `npm ci --omit=dev` dans l’environnement Node.js indiqué par cPanel. Passenger fournit lui-même le point d’écoute : il ne faut pas lancer `npm start` manuellement sur o2switch. Après l’installation, redémarrer l’application depuis **Setup Node.js App**.
 
+Pour déployer automatiquement chaque nouveau commit validé sur `main`, le dépôt fournit `scripts/deploy-o2switch.sh`. Dans **cPanel > Tâches Cron**, créer une tâche exécutée toutes les cinq minutes avec cette commande :
+
+```sh
+/usr/bin/flock -n /tmp/capharnaum-deploy.lock /bin/bash /home2/gavu5696/capharnaum-app/scripts/deploy-o2switch.sh >> /home2/gavu5696/capharnaum-deploy.log 2>&1
+```
+
+Le script attend que la vérification GitHub Actions `test` soit réussie, met le dépôt à jour uniquement en avance rapide, installe les dépendances de production et demande à Passenger de redémarrer. Le fichier `/home2/gavu5696/capharnaum-deploy.log` permet de contrôler les déploiements. Une modification arrive ainsi en production au plus tard quelques minutes après la réussite des tests.
+
 L'interface dans `public/` conserve les calculs du navigateur pour les modifications manuelles et les limites de validation du site. La génération aléatoire utilise l'API et ses contrôles plus stricts. Les styles Foundation, jQuery, jQuery UI et les images sont inclus localement. Voir `docs/frontend.md` pour la provenance.
 
 ```sh
