@@ -7,6 +7,8 @@ import { createStaticHandler } from './static.js';
 import { genererPersonnage } from './aleatoire.js';
 import { genererPdf } from './pdf.js';
 import { genererNoms, genresNoms, sangsNoms } from './noms.js';
+import { genererTitres, figuresTitres } from './titres.js';
+import { genererPnj } from './pnj.js';
 
 const versionServeur = `${Date.now()}-${process.pid}`;
 const modeDeveloppement = process.env.NODE_ENV === 'development';
@@ -146,13 +148,41 @@ export function createApp(options = {}) {
         const result = genererNoms({ genre, nombre: Number(nombreTexte), sangId, origineNom: origine?.nom });
         return json(res, 200, { ...result, origine_id: origine?.id ?? null });
       }
-      if (req.method === 'POST' && pathname === '/api/personnages/aleatoire') {
+      if (req.method === 'GET' && pathname === '/api/titres') {
         for (const key of url.searchParams.keys()) {
-          if (key !== 'genre') return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
+          if (!['figure_id', 'nombre'].includes(key)) return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
+        }
+        const figureId = url.searchParams.get('figure_id');
+        const nombreTexte = url.searchParams.get('nombre') ?? '4';
+        if (!figuresTitres.includes(figureId)) return json(res, 400, { erreur: 'figure_id est inconnu.' });
+        if (!/^\d+$/.test(nombreTexte) || Number(nombreTexte) < 1 || Number(nombreTexte) > 4) {
+          return json(res, 400, { erreur: 'nombre doit être un entier entre 1 et 4.' });
+        }
+        return json(res, 200, genererTitres({ figureId, nombre: Number(nombreTexte) }));
+      }
+      if (req.method === 'GET' && pathname === '/api/pnj/aleatoires') {
+        for (const key of url.searchParams.keys()) {
+          if (!['genre', 'nombre', 'avec_titre'].includes(key)) return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
         }
         const genre = url.searchParams.get('genre') ?? 'aleatoire';
+        const nombreTexte = url.searchParams.get('nombre') ?? '5';
+        const avecTitreTexte = url.searchParams.get('avec_titre') ?? '1';
         if (!genresNoms.includes(genre)) return json(res, 400, { erreur: 'genre doit valoir homme, femme ou aleatoire.' });
-        return json(res, 200, genererPersonnage(undefined, { genre }));
+        if (!/^\d+$/.test(nombreTexte) || Number(nombreTexte) < 1 || Number(nombreTexte) > 20) {
+          return json(res, 400, { erreur: 'nombre doit être un entier entre 1 et 20.' });
+        }
+        if (!['0', '1'].includes(avecTitreTexte)) return json(res, 400, { erreur: 'avec_titre doit valoir 0 ou 1.' });
+        return json(res, 200, genererPnj({ genre, nombre: Number(nombreTexte), avecTitre: avecTitreTexte === '1' }));
+      }
+      if (req.method === 'POST' && pathname === '/api/personnages/aleatoire') {
+        for (const key of url.searchParams.keys()) {
+          if (!['genre', 'avec_titre'].includes(key)) return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
+        }
+        const genre = url.searchParams.get('genre') ?? 'aleatoire';
+        const avecTitreTexte = url.searchParams.get('avec_titre') ?? '0';
+        if (!genresNoms.includes(genre)) return json(res, 400, { erreur: 'genre doit valoir homme, femme ou aleatoire.' });
+        if (!['0', '1'].includes(avecTitreTexte)) return json(res, 400, { erreur: 'avec_titre doit valoir 0 ou 1.' });
+        return json(res, 200, genererPersonnage(undefined, { genre, avecTitre: avecTitreTexte === '1' }));
       }
       const resource = pathname.match(/^\/api\/(sangs|origines|paroles|figures|competences|caracteristiques|vertus)$/)?.[1];
       if (req.method === 'GET' && resource) {

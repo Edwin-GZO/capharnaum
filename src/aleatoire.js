@@ -2,8 +2,9 @@ import { randomInt } from 'node:crypto';
 import { catalogue, regles } from './catalogue.js';
 import { calculerPersonnage } from './personnage.js';
 import { genererNom } from './noms.js';
+import { ajouterTitre } from './titres.js';
 
-export function genererPersonnage(tirer = randomInt, { genre = 'aleatoire' } = {}) {
+export function genererPersonnage(tirer = randomInt, { genre = 'aleatoire', avecTitre = false } = {}) {
   const choisir = values => {
     if (!values.length) throw new Error('Aucun choix disponible pour la génération.');
     return values[tirer(values.length)];
@@ -47,8 +48,10 @@ export function genererPersonnage(tirer = randomInt, { genre = 'aleatoire' } = {
   const vertus = Object.fromEntries(catalogue.vertus.map(v => [v.id, regles.vertus.minimum]));
   const ajoutsVertus = repartir(vertus, regles.vertus.points - Object.values(vertus).reduce((a, b) => a + b, 0), regles.vertus.maximum);
   for (const id of Object.keys(vertus)) vertus[id] += ajoutsVertus[id];
+  let nom = genererNom(genre, tirer, { sangId: sang.id, origineNom: origine.nom }).nom;
+  if (avecTitre) nom = ajouterTitre(nom, figures[0], tirer);
   const creation = {
-    nom: genererNom(genre, tirer, { sangId: sang.id, origineNom: origine.nom }).nom,
+    nom,
     sang_id: sang.id, origine_id: origine.id, parole_id: parole.id,
     choix_bonus: choix, vertus, ordre_figures: figures,
     points_caracteristiques: repartir(caracs, regles.caracteristiques.points_libres, regles.caracteristiques.maximum_creation),

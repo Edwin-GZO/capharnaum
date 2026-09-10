@@ -107,6 +107,17 @@ jQuery(function ($) {
     if (!namesContainer.hidden) proposerNoms();
   });
 
+  window.chargerCreationCapharnaum = async creation => {
+    const [personnage, catalogue, regles] = await Promise.all([
+      lire('/api/personnages/calculer', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(creation),
+      }),
+      lire('/api/catalogue'),
+      lire('/api/regles'),
+    ]);
+    remplir({ creation, personnage }, catalogue, regles);
+  };
+
   button.addEventListener('click', async () => {
     if (button.disabled) return;
     button.disabled = true;
@@ -115,8 +126,9 @@ jQuery(function ($) {
     status.textContent = '';
     try {
       const genre = document.getElementById('genre-nom').value;
+      const avecTitre = document.getElementById('avec-titre').checked ? '1' : '0';
       const [result, catalogue, regles] = await Promise.all([
-        lire(`/api/personnages/aleatoire?genre=${encodeURIComponent(genre)}`, { method: 'POST' }),
+        lire(`/api/personnages/aleatoire?genre=${encodeURIComponent(genre)}&avec_titre=${avecTitre}`, { method: 'POST' }),
         lire('/api/catalogue'),
         lire('/api/regles'),
       ]);

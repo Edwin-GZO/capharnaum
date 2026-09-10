@@ -104,6 +104,20 @@ jQuery(function ($) {
     previewTimer = setTimeout(() => actualiserApercu(revision), 900);
   }
 
+  async function telechargerCreation(creation) {
+    const url = URL.createObjectURL(await demanderPdf(creation));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'personnage-capharnaum.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
+  window.lireCreationCapharnaum = async () => lireCreation(await lireCatalogue());
+  window.telechargerCreationCapharnaum = telechargerCreation;
+
   const champsSuivis = '#nom-personnage, #sang, #tribu, #parole, #vertus_heroiques input[type=number], #caracteristiques input[type=number], #competences input[type=number]';
   $(document).on('change', champsSuivis, programmerApercu);
   $(document).on('input', '#nom-personnage', programmerApercu);
@@ -125,14 +139,7 @@ jQuery(function ($) {
     status.textContent = '';
     try {
       const creation = lireCreation(await lireCatalogue());
-      const url = URL.createObjectURL(await demanderPdf(creation));
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'personnage-capharnaum.pdf';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      await telechargerCreation(creation);
       status.textContent = 'Feuille PDF prête. Les tirages de finition, l’équipement et la richesse restent à compléter.';
     } catch (error) {
       status.classList.add('erreur');

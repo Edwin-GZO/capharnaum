@@ -27,6 +27,8 @@ Le bouton **Générer aléatoirement** remplit la fiche avec un personnage valid
 
 Le bouton **Proposer 5 noms** affiche des suggestions correspondant au genre, au Sang et à l’origine sélectionnés. Choisir une proposition remplit uniquement le nom du personnage et actualise l’aperçu PDF sans changer le reste de la fiche. Les styles culturels sont une inspiration propre à ce projet et ne sont pas présentés comme une règle officielle de Capharnaüm.
 
+Les titres proposés suivent la figure principale. L’outil peut également générer cinq PNJ prêts à charger dans la fiche. La galerie conserve jusqu’à 50 créations dans le stockage local du navigateur ; chaque entrée peut être chargée, dupliquée, supprimée ou exportée à nouveau en PDF. Ces sauvegardes ne sont pas envoyées au serveur et restent propres au navigateur utilisé.
+
 Les points libres de compétence sont investis d'abord dans la figure à +3, puis dans les suivantes selon leur classement. Le choix reste aléatoire entre les compétences disponibles d'une même figure, avec au maximum 2 points ajoutés par compétence et un score final de 5. Cette priorité est une préférence de génération du projet ; elle n'est pas présentée comme une obligation des règles officielles.
 
 Pour remplir le modèle PDF fourni, saisir le nom du personnage, générer ou compléter la fiche, puis cliquer sur **Télécharger la feuille PDF**. L'export reprend les choix et allocations actuels, y compris les modifications manuelles, et les valide côté serveur. Une allocation incomplète ou dépassant les limites affiche une erreur. Le nom peut contenir des lettres latines accentuées ; les caractères non pris en charge (comme les emojis) sont signalés.
@@ -103,8 +105,10 @@ curl -X POST http://127.0.0.1:3000/api/personnages/calculer \
 | GET | `/api/vertus` | Vertus |
 | GET | `/api/regles` | Règles, formules et limites de la source |
 | GET | `/api/noms` | 1 à 20 noms ; `genre`, `nombre`, `sang_id` et `origine_id` facultatifs |
+| GET | `/api/titres` | Titres liés à une figure ; `figure_id` requis, `nombre` facultatif |
+| GET | `/api/pnj/aleatoires` | 1 à 20 PNJ ; `genre`, `nombre` et `avec_titre=0\|1` facultatifs |
 | POST | `/api/personnages/calculer` | Validation et calcul ; exemple dans `examples/personnage.json` |
-| POST | `/api/personnages/aleatoire` | Sans corps ; `genre=homme\|femme\|aleatoire` ; renvoie `creation` et `personnage` |
+| POST | `/api/personnages/aleatoire` | Sans corps ; `genre` et `avec_titre=0\|1` facultatifs ; renvoie `creation` et `personnage` |
 | POST | `/api/personnages/pdf` | Même JSON que `/calculer` ; renvoie le modèle rempli en `application/pdf` |
 
 Les erreurs de validation renvoient HTTP 422 avec `{ "erreur": "…" }`. JSON malformé : 400 ; format autre que JSON : 415 ; corps supérieur à 64 Kio : 413.

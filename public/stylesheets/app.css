@@ -40,11 +40,27 @@
 .identite-generation .champ-nom { flex: 1 1 400px; }
 .identite-generation .champ-genre { flex: 0 0 190px; }
 .identite-generation input, .identite-generation select { margin-bottom: 12px; }
+.option-titre { display: block; margin: 0 0 12px; }
+.option-titre input { margin: 0 6px 0 0; }
 .propositions-noms { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
 .propositions-noms[hidden] { display: none; }
 .propositions-noms button { margin: 0; padding: 7px 11px; border: 1px solid #aaa; border-radius: 3px; background: #fff; color: #333; cursor: pointer; }
 .propositions-noms button:hover, .propositions-noms button:focus { border-color: #2284a1; background: #f0f9fc; color: #176b85; }
 .generation-aleatoire .button:disabled { opacity: .65; cursor: wait; }
+.outils-personnages { margin-bottom: 20px; padding: 14px; border: 1px solid #ddd; background: #fafafa; }
+.outils-personnages h2 { font-size: 22px; margin-bottom: 10px; }
+.outils-personnages h3 { font-size: 18px; margin: 12px 0 6px; }
+.actions-outils { display: flex; flex-wrap: wrap; gap: 8px; }
+.actions-outils .button { margin-bottom: 6px; }
+#outils-statut { color: #276b37; }
+#outils-statut.erreur { color: #a62121; }
+.aide-galerie { color: #555; margin-bottom: 8px; }
+.liste-cartes { display: grid; gap: 8px; }
+.carte-personnage { padding: 10px; border: 1px solid #ccc; background: #fff; }
+.carte-personnage strong { display: block; margin-bottom: 3px; }
+.carte-personnage p { margin-bottom: 7px; color: #555; }
+.carte-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.carte-actions button { margin: 0; padding: 6px 10px; }
 .page-title { max-width: 1800px; padding: 0 20px; }
 .page-layout {
   display: grid;

@@ -7,6 +7,8 @@ import { createApp, startApp } from '../src/server.js';
 import { genererPersonnage } from '../src/aleatoire.js';
 import { genererPdf } from '../src/pdf.js';
 import { genererNom, genererNoms } from '../src/noms.js';
+import { ajouterTitre, genererTitres } from '../src/titres.js';
+import { genererPnj } from '../src/pnj.js';
 import { PDFDocument } from 'pdf-lib';
 
 const example = () => JSON.parse(readFileSync(new URL('../examples/personnage.json', import.meta.url), 'utf8'));
@@ -25,6 +27,22 @@ test('génère des noms complets masculins, féminins et uniques', () => {
   assert.equal(new Set(genererNoms({ nombre: 20 }, tirerPremier).noms.map(item => item.nom)).size, 20);
   assert.throws(() => genererNoms({ genre: 'inconnu' }), RangeError);
   assert.throws(() => genererNoms({ nombre: 21 }), RangeError);
+});
+
+test('génère des titres par figure et des groupes de PNJ valides', () => {
+  const tirerPremier = () => 0;
+  const titres = genererTitres({ figureId: 'guerrier', nombre: 4 }, tirerPremier);
+  assert.equal(titres.figure.id, 'guerrier');
+  assert.equal(new Set(titres.titres).size, 4);
+  assert.match(ajouterTitre('Adam ibn Adil', 'sage', tirerPremier), /^Adam ibn Adil, /);
+  const result = genererPnj({ genre: 'femme', nombre: 5, avecTitre: true });
+  assert.equal(result.pnj.length, 5);
+  for (const pnj of result.pnj) {
+    assert.deepEqual(calculerPersonnage(pnj.creation).statistiques, pnj.statistiques);
+    assert.ok(pnj.nom.includes(', '));
+  }
+  assert.throws(() => genererTitres({ figureId: 'inconnue' }), RangeError);
+  assert.throws(() => genererPnj({ nombre: 21 }), RangeError);
 });
 
 test('remplit le modèle PDF de deux pages avec un nom accentué sans altérer le modèle', async () => {
@@ -216,6 +234,9 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.match(frontHtml, /id="genre-nom"/);
   assert.match(frontHtml, /id="proposer-noms"/);
   assert.match(frontHtml, /id="propositions-noms"/);
+  assert.match(frontHtml, /id="proposer-titres"/);
+  assert.match(frontHtml, /id="galerie-personnages"/);
+  assert.match(frontHtml, /id="generer-pnj"/);
   assert.match(frontHtml, /javascripts\/rechargement\.js/);
   assert.equal(front.headers.get('cache-control'), 'no-cache');
   const version = await get('/__dev/version');
@@ -227,6 +248,7 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
     ['/javascripts/caph.js', 'text/javascript'],
     ['/javascripts/foundation.min.js', 'text/javascript'],
     ['/javascripts/rechargement.js', 'text/javascript'],
+    ['/javascripts/outils.js', 'text/javascript'],
     ['/stylesheets/app.css', 'text/css'],
     ['/images/bonus_figures.png', 'image/png'],
   ]) {
@@ -256,7 +278,10 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
     agalantheen: / de /,
     escarte: / de /,
   }[femaleCharacter.creation.sang_id]);
+  const titledCharacter = await (await fetch(base + '/api/personnages/aleatoire?avec_titre=1', { method: 'POST' })).json();
+  assert.ok(titledCharacter.creation.nom.includes(', '));
   assert.equal((await fetch(base + '/api/personnages/aleatoire?genre=inconnu', { method: 'POST' })).status, 400);
+  assert.equal((await fetch(base + '/api/personnages/aleatoire?avec_titre=oui', { method: 'POST' })).status, 400);
   assert.equal((await fetch(base + '/api/personnages/aleatoire?nombre=2', { method: 'POST' })).status, 400);
   const namesResponse = await get('/api/noms?genre=femme&nombre=3');
   assert.equal(namesResponse.status, 200);
@@ -268,6 +293,17 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.ok(culturalNames.noms.every(item => item.sang_id === 'agalantheen' && item.nom.endsWith(' de Thérème')));
   assert.equal((await get('/api/noms?sang_id=saabi&origine_id=thereme')).status, 400);
   assert.equal((await get('/api/noms?sang_id=inconnu')).status, 400);
+  const titlesResponse = await get('/api/titres?figure_id=poete&nombre=4');
+  assert.equal(titlesResponse.status, 200);
+  assert.equal((await titlesResponse.json()).titres.length, 4);
+  assert.equal((await get('/api/titres?figure_id=inconnue')).status, 400);
+  const npcResponse = await get('/api/pnj/aleatoires?genre=femme&nombre=3&avec_titre=1');
+  assert.equal(npcResponse.status, 200);
+  const npcs = await npcResponse.json();
+  assert.equal(npcs.pnj.length, 3);
+  assert.ok(npcs.pnj.every(pnj => pnj.nom.includes(', ') && pnj.creation.nom === pnj.nom));
+  assert.equal((await get('/api/pnj/aleatoires?nombre=21')).status, 400);
+  assert.equal((await get('/api/pnj/aleatoires?avec_titre=oui')).status, 400);
   assert.equal((await get('/api/noms?genre=inconnu')).status, 400);
   assert.equal((await get('/api/noms?nombre=0')).status, 400);
   assert.equal((await get('/api/noms?autre=1')).status, 400);
