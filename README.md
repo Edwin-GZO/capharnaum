@@ -102,7 +102,7 @@ curl -X POST http://127.0.0.1:3000/api/personnages/calculer \
 | GET | `/api/regles` | Règles, formules et limites de la source |
 | GET | `/api/noms` | 1 à 20 noms composés localement ; `genre=homme\|femme\|aleatoire`, `nombre=10` |
 | POST | `/api/personnages/calculer` | Validation et calcul ; exemple dans `examples/personnage.json` |
-| POST | `/api/personnages/aleatoire` | Sans corps ; renvoie `creation` (choix et allocations) et `personnage` (scores calculés) |
+| POST | `/api/personnages/aleatoire` | Sans corps ; `genre=homme\|femme\|aleatoire` ; renvoie `creation` et `personnage` |
 | POST | `/api/personnages/pdf` | Même JSON que `/calculer` ; renvoie le modèle rempli en `application/pdf` |
 
 Les erreurs de validation renvoient HTTP 422 avec `{ "erreur": "…" }`. JSON malformé : 400 ; format autre que JSON : 415 ; corps supérieur à 64 Kio : 413.

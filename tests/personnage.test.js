@@ -204,6 +204,7 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.match(frontHtml, /class="page-layout"/);
   assert.match(frontHtml, /class="creation-panel"/);
   assert.match(frontHtml, /id="apercu-pdf-frame"/);
+  assert.match(frontHtml, /id="genre-nom"/);
   assert.match(frontHtml, /javascripts\/rechargement\.js/);
   assert.equal(front.headers.get('cache-control'), 'no-cache');
   const version = await get('/__dev/version');
@@ -235,6 +236,11 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   const generated = await randomResponse.json();
   assert.deepEqual(calculerPersonnage(generated.creation), generated.personnage);
   assert.match(generated.creation.nom, / (?:ibn|bint) /);
+  const femaleCharacterResponse = await fetch(base + '/api/personnages/aleatoire?genre=femme', { method: 'POST' });
+  assert.equal(femaleCharacterResponse.status, 200);
+  assert.match((await femaleCharacterResponse.json()).creation.nom, / bint /);
+  assert.equal((await fetch(base + '/api/personnages/aleatoire?genre=inconnu', { method: 'POST' })).status, 400);
+  assert.equal((await fetch(base + '/api/personnages/aleatoire?nombre=2', { method: 'POST' })).status, 400);
   const namesResponse = await get('/api/noms?genre=femme&nombre=3');
   assert.equal(namesResponse.status, 200);
   const names = await namesResponse.json();

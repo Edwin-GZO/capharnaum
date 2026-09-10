@@ -36,7 +36,10 @@
 #generation-statut.erreur { color: #a62121; }
 #pdf-statut { color: #276b37; }
 #pdf-statut.erreur { color: #a62121; }
-#nom-personnage { max-width: 400px; }
+.identite-generation { display: flex; gap: 16px; align-items: flex-end; max-width: 620px; }
+.identite-generation .champ-nom { flex: 1 1 400px; }
+.identite-generation .champ-genre { flex: 0 0 190px; }
+.identite-generation input, .identite-generation select { margin-bottom: 12px; }
 .generation-aleatoire .button:disabled { opacity: .65; cursor: wait; }
 .page-title { max-width: 1800px; padding: 0 20px; }
 .page-layout {
@@ -67,6 +70,7 @@
 .remerciements p { margin-bottom: 8px; }
 .remerciements a { color: #176b85; text-decoration: underline; }
 @media only screen and (max-width: 767px) {
+  .identite-generation { display: block; }
   .generation-aleatoire .button { width: 100%; }
   #apercu-pdf-frame { height: 600px; }
 }

@@ -3,7 +3,7 @@ import { catalogue, regles } from './catalogue.js';
 import { calculerPersonnage } from './personnage.js';
 import { genererNom } from './noms.js';
 
-export function genererPersonnage(tirer = randomInt) {
+export function genererPersonnage(tirer = randomInt, { genre = 'aleatoire' } = {}) {
   const choisir = values => {
     if (!values.length) throw new Error('Aucun choix disponible pour la génération.');
     return values[tirer(values.length)];
@@ -48,7 +48,7 @@ export function genererPersonnage(tirer = randomInt) {
   const ajoutsVertus = repartir(vertus, regles.vertus.points - Object.values(vertus).reduce((a, b) => a + b, 0), regles.vertus.maximum);
   for (const id of Object.keys(vertus)) vertus[id] += ajoutsVertus[id];
   const creation = {
-    nom: genererNom('aleatoire', tirer).nom, sang_id: sang.id, origine_id: origine.id, parole_id: parole.id,
+    nom: genererNom(genre, tirer).nom, sang_id: sang.id, origine_id: origine.id, parole_id: parole.id,
     choix_bonus: choix, vertus, ordre_figures: figures,
     points_caracteristiques: repartir(caracs, regles.caracteristiques.points_libres, regles.caracteristiques.maximum_creation),
     points_competences: repartir(comps, budget, regles.competences.maximum_creation, regles.competences.maximum_ajout_par_competence,

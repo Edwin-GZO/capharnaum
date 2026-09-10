@@ -37,8 +37,20 @@
     <main class="page-layout">
     <div class="creation-panel">
     <div class="row generation-aleatoire">
-        <label for="nom-personnage">Nom du personnage</label>
-        <input type="text" id="nom-personnage" maxlength="100" placeholder="À nommer" autocomplete="off">
+        <div class="identite-generation">
+            <div class="champ-nom">
+                <label for="nom-personnage">Nom du personnage</label>
+                <input type="text" id="nom-personnage" maxlength="100" placeholder="À nommer" autocomplete="off">
+            </div>
+            <div class="champ-genre">
+                <label for="genre-nom">Genre du nom généré</label>
+                <select id="genre-nom">
+                    <option value="aleatoire">Aléatoire</option>
+                    <option value="homme">Masculin</option>
+                    <option value="femme">Féminin</option>
+                </select>
+            </div>
+        </div>
         <button type="button" class="button" id="generer-aleatoirement" aria-describedby="generation-aide">Générer aléatoirement</button>
         <button type="button" class="button secondary" id="telecharger-pdf">Télécharger la feuille PDF</button>
         <p id="generation-aide">Remplit tous les choix et répartit les points de compétence en priorité dans la figure à +3. Remplace le personnage actuel, que tu peux ensuite modifier.</p>

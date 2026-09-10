@@ -61,8 +61,9 @@ jQuery(function ($) {
     status.classList.remove('erreur');
     status.textContent = '';
     try {
+      const genre = document.getElementById('genre-nom').value;
       const [result, catalogue, regles] = await Promise.all([
-        lire('/api/personnages/aleatoire', { method: 'POST' }),
+        lire(`/api/personnages/aleatoire?genre=${encodeURIComponent(genre)}`, { method: 'POST' }),
         lire('/api/catalogue'),
         lire('/api/regles'),
       ]);

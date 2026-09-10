@@ -140,7 +140,14 @@ export function createApp(options = {}) {
         }
         return json(res, 200, genererNoms({ genre, nombre: Number(nombreTexte) }));
       }
-      if (req.method === 'POST' && pathname === '/api/personnages/aleatoire') return json(res, 200, genererPersonnage());
+      if (req.method === 'POST' && pathname === '/api/personnages/aleatoire') {
+        for (const key of url.searchParams.keys()) {
+          if (key !== 'genre') return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
+        }
+        const genre = url.searchParams.get('genre') ?? 'aleatoire';
+        if (!genresNoms.includes(genre)) return json(res, 400, { erreur: 'genre doit valoir homme, femme ou aleatoire.' });
+        return json(res, 200, genererPersonnage(undefined, { genre }));
+      }
       const resource = pathname.match(/^\/api\/(sangs|origines|paroles|figures|competences|caracteristiques|vertus)$/)?.[1];
       if (req.method === 'GET' && resource) {
         let values = catalogue[resource];
