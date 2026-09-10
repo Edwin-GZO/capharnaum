@@ -6,7 +6,7 @@ import { calculerPersonnage, ValidationError } from './personnage.js';
 import { createStaticHandler } from './static.js';
 import { genererPersonnage } from './aleatoire.js';
 import { genererPdf } from './pdf.js';
-import { genererNoms, genresNoms } from './noms.js';
+import { genererNoms, genresNoms, sangsNoms } from './noms.js';
 
 const versionServeur = `${Date.now()}-${process.pid}`;
 const modeDeveloppement = process.env.NODE_ENV === 'development';
@@ -130,15 +130,21 @@ export function createApp(options = {}) {
       if (req.method === 'GET' && pathname === '/api/catalogue') return catalogueJson(res, catalogue);
       if (req.method === 'GET' && pathname === '/api/noms') {
         for (const key of url.searchParams.keys()) {
-          if (!['genre', 'nombre'].includes(key)) return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
+          if (!['genre', 'nombre', 'sang_id', 'origine_id'].includes(key)) return json(res, 400, { erreur: `Paramètre inconnu : ${key}.` });
         }
         const genre = url.searchParams.get('genre') ?? 'aleatoire';
         const nombreTexte = url.searchParams.get('nombre') ?? '10';
+        const sangId = url.searchParams.get('sang_id') ?? 'saabi';
+        const origineId = url.searchParams.get('origine_id');
         if (!genresNoms.includes(genre)) return json(res, 400, { erreur: 'genre doit valoir homme, femme ou aleatoire.' });
+        if (!sangsNoms.includes(sangId)) return json(res, 400, { erreur: 'sang_id est inconnu.' });
         if (!/^\d+$/.test(nombreTexte) || Number(nombreTexte) < 1 || Number(nombreTexte) > 20) {
           return json(res, 400, { erreur: 'nombre doit être un entier entre 1 et 20.' });
         }
-        return json(res, 200, genererNoms({ genre, nombre: Number(nombreTexte) }));
+        const origine = origineId ? catalogue.origines.find(item => item.id === origineId && item.sang_id === sangId) : undefined;
+        if (origineId && !origine) return json(res, 400, { erreur: 'origine_id ne correspond pas au Sang.' });
+        const result = genererNoms({ genre, nombre: Number(nombreTexte), sangId, origineNom: origine?.nom });
+        return json(res, 200, { ...result, origine_id: origine?.id ?? null });
       }
       if (req.method === 'POST' && pathname === '/api/personnages/aleatoire') {
         for (const key of url.searchParams.keys()) {

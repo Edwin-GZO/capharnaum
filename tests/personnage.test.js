@@ -13,8 +13,11 @@ const example = () => JSON.parse(readFileSync(new URL('../examples/personnage.js
 
 test('génère des noms complets masculins, féminins et uniques', () => {
   const tirerPremier = () => 0;
-  assert.deepEqual(genererNom('homme', tirerPremier), { nom: 'Adam ibn Adil', genre: 'homme' });
-  assert.deepEqual(genererNom('femme', tirerPremier), { nom: 'Aïcha bint Adam', genre: 'femme' });
+  assert.deepEqual(genererNom('homme', tirerPremier), { nom: 'Adam ibn Adil', genre: 'homme', sang_id: 'saabi' });
+  assert.deepEqual(genererNom('femme', tirerPremier), { nom: 'Aïcha bint Adam', genre: 'femme', sang_id: 'saabi' });
+  assert.equal(genererNom('homme', tirerPremier, { sangId: 'shiradi' }).nom, 'Aaron ben Asher');
+  assert.equal(genererNom('femme', tirerPremier, { sangId: 'agalantheen', origineNom: 'Thérème' }).nom, 'Ariane de Thérème');
+  assert.equal(genererNom('femme', tirerPremier, { sangId: 'escarte', origineNom: 'Aragón' }).nom, 'Alba de Aragón');
   const result = genererNoms({ genre: 'aleatoire', nombre: 20 });
   assert.equal(result.noms.length, 20);
   assert.equal(new Set(result.noms.map(item => item.nom)).size, 20);
@@ -53,6 +56,12 @@ test('génère des personnages valides pour toutes les origines, avec choix et e
   for (let i = 0; i < 1000; i++) {
     const { creation, personnage } = genererPersonnage(tirer);
     assert.deepEqual(calculerPersonnage(creation), personnage);
+    assert.match(creation.nom, {
+      saabi: / (?:ibn|bint) /,
+      shiradi: / (?:ben|bat) /,
+      agalantheen: / de /,
+      escarte: / de /,
+    }[creation.sang_id]);
     assert.equal(catalogue.paroles.find(p => p.id === creation.parole_id).origine_id, creation.origine_id);
     assert.ok(Object.values(personnage.caracteristiques).every(v => v >= 1 && v <= 4));
     assert.ok(Object.values(personnage.competences).every(v => v >= 0 && v <= 5));
@@ -237,7 +246,7 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.equal(randomResponse.status, 200);
   const generated = await randomResponse.json();
   assert.deepEqual(calculerPersonnage(generated.creation), generated.personnage);
-  assert.match(generated.creation.nom, / (?:ibn|bint) /);
+  assert.ok(generated.creation.nom.length > 4);
   const femaleCharacterResponse = await fetch(base + '/api/personnages/aleatoire?genre=femme', { method: 'POST' });
   assert.equal(femaleCharacterResponse.status, 200);
   assert.match((await femaleCharacterResponse.json()).creation.nom, / bint /);
@@ -248,6 +257,11 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   const names = await namesResponse.json();
   assert.equal(names.nombre, 3);
   assert.ok(names.noms.every(item => item.genre === 'femme' && item.nom.includes(' bint ')));
+  const culturalNames = await (await get('/api/noms?genre=homme&nombre=3&sang_id=agalantheen&origine_id=thereme')).json();
+  assert.equal(culturalNames.origine_id, 'thereme');
+  assert.ok(culturalNames.noms.every(item => item.sang_id === 'agalantheen' && item.nom.endsWith(' de Thérème')));
+  assert.equal((await get('/api/noms?sang_id=saabi&origine_id=thereme')).status, 400);
+  assert.equal((await get('/api/noms?sang_id=inconnu')).status, 400);
   assert.equal((await get('/api/noms?genre=inconnu')).status, 400);
   assert.equal((await get('/api/noms?nombre=0')).status, 400);
   assert.equal((await get('/api/noms?autre=1')).status, 400);

@@ -25,7 +25,7 @@ Si le port 3000 est occupé, `npm run dev` essaie automatiquement les ports suiv
 
 Le bouton **Générer aléatoirement** remplit la fiche avec un personnage validé par l'API : Sang, origine, Parole rattachée à cette origine, bonus au choix, vertus, caractéristiques et figures. Tous les points libres sont répartis, y compris les excédents de compétences. Chaque clic remplace la fiche ; les champs restent modifiables. Les finitions absentes des sources restent à compléter.
 
-Le bouton **Proposer 5 noms** affiche des suggestions correspondant au genre sélectionné. Choisir une proposition remplit uniquement le nom du personnage et actualise l’aperçu PDF sans changer le reste de la fiche.
+Le bouton **Proposer 5 noms** affiche des suggestions correspondant au genre, au Sang et à l’origine sélectionnés. Choisir une proposition remplit uniquement le nom du personnage et actualise l’aperçu PDF sans changer le reste de la fiche. Les styles culturels sont une inspiration propre à ce projet et ne sont pas présentés comme une règle officielle de Capharnaüm.
 
 Les points libres de compétence sont investis d'abord dans la figure à +3, puis dans les suivantes selon leur classement. Le choix reste aléatoire entre les compétences disponibles d'une même figure, avec au maximum 2 points ajoutés par compétence et un score final de 5. Cette priorité est une préférence de génération du projet ; elle n'est pas présentée comme une obligation des règles officielles.
 
@@ -102,7 +102,7 @@ curl -X POST http://127.0.0.1:3000/api/personnages/calculer \
 | GET | `/api/caracteristiques` | Caractéristiques |
 | GET | `/api/vertus` | Vertus |
 | GET | `/api/regles` | Règles, formules et limites de la source |
-| GET | `/api/noms` | 1 à 20 noms composés localement ; `genre=homme\|femme\|aleatoire`, `nombre=10` |
+| GET | `/api/noms` | 1 à 20 noms ; `genre`, `nombre`, `sang_id` et `origine_id` facultatifs |
 | POST | `/api/personnages/calculer` | Validation et calcul ; exemple dans `examples/personnage.json` |
 | POST | `/api/personnages/aleatoire` | Sans corps ; `genre=homme\|femme\|aleatoire` ; renvoie `creation` et `personnage` |
 | POST | `/api/personnages/pdf` | Même JSON que `/calculer` ; renvoie le modèle rempli en `application/pdf` |

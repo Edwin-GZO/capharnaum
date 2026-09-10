@@ -70,7 +70,11 @@ jQuery(function ($) {
     status.classList.remove('erreur');
     try {
       const genre = document.getElementById('genre-nom').value;
-      const result = await lire(`/api/noms?genre=${encodeURIComponent(genre)}&nombre=5`);
+      const sang = document.getElementById('sang').value || 'saabi';
+      const origine = document.getElementById('tribu').value;
+      const params = new URLSearchParams({ genre, nombre: '5', sang_id: sang });
+      if (origine) params.set('origine_id', origine);
+      const result = await lire(`/api/noms?${params}`);
       if (request !== namesRequest) return;
       namesContainer.replaceChildren(...result.noms.map(({ nom }) => {
         const suggestion = document.createElement('button');
@@ -97,6 +101,9 @@ jQuery(function ($) {
 
   namesButton.addEventListener('click', proposerNoms);
   document.getElementById('genre-nom').addEventListener('change', () => {
+    if (!namesContainer.hidden) proposerNoms();
+  });
+  $('#sang, #tribu').on('change', () => {
     if (!namesContainer.hidden) proposerNoms();
   });
 
