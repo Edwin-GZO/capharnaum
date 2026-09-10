@@ -249,7 +249,13 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.ok(generated.creation.nom.length > 4);
   const femaleCharacterResponse = await fetch(base + '/api/personnages/aleatoire?genre=femme', { method: 'POST' });
   assert.equal(femaleCharacterResponse.status, 200);
-  assert.match((await femaleCharacterResponse.json()).creation.nom, / bint /);
+  const femaleCharacter = await femaleCharacterResponse.json();
+  assert.match(femaleCharacter.creation.nom, {
+    saabi: / bint /,
+    shiradi: / bat /,
+    agalantheen: / de /,
+    escarte: / de /,
+  }[femaleCharacter.creation.sang_id]);
   assert.equal((await fetch(base + '/api/personnages/aleatoire?genre=inconnu', { method: 'POST' })).status, 400);
   assert.equal((await fetch(base + '/api/personnages/aleatoire?nombre=2', { method: 'POST' })).status, 400);
   const namesResponse = await get('/api/noms?genre=femme&nombre=3');
