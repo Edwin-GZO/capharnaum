@@ -25,6 +25,8 @@ Si le port 3000 est occupé, `npm run dev` essaie automatiquement les ports suiv
 
 Le bouton **Générer aléatoirement** remplit la fiche avec un personnage validé par l'API : Sang, origine, Parole rattachée à cette origine, bonus au choix, vertus, caractéristiques et figures. Tous les points libres sont répartis, y compris les excédents de compétences. Chaque clic remplace la fiche ; les champs restent modifiables. Les finitions absentes des sources restent à compléter.
 
+Le bouton **Proposer 5 noms** affiche des suggestions correspondant au genre sélectionné. Choisir une proposition remplit uniquement le nom du personnage et actualise l’aperçu PDF sans changer le reste de la fiche.
+
 Les points libres de compétence sont investis d'abord dans la figure à +3, puis dans les suivantes selon leur classement. Le choix reste aléatoire entre les compétences disponibles d'une même figure, avec au maximum 2 points ajoutés par compétence et un score final de 5. Cette priorité est une préférence de génération du projet ; elle n'est pas présentée comme une obligation des règles officielles.
 
 Pour remplir le modèle PDF fourni, saisir le nom du personnage, générer ou compléter la fiche, puis cliquer sur **Télécharger la feuille PDF**. L'export reprend les choix et allocations actuels, y compris les modifications manuelles, et les valide côté serveur. Une allocation incomplète ou dépassant les limites affiche une erreur. Le nom peut contenir des lettres latines accentuées ; les caractères non pris en charge (comme les emojis) sont signalés.

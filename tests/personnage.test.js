@@ -205,6 +205,8 @@ test('API HTTP : catalogue, filtrage, calcul et erreurs client', async t => {
   assert.match(frontHtml, /class="creation-panel"/);
   assert.match(frontHtml, /id="apercu-pdf-frame"/);
   assert.match(frontHtml, /id="genre-nom"/);
+  assert.match(frontHtml, /id="proposer-noms"/);
+  assert.match(frontHtml, /id="propositions-noms"/);
   assert.match(frontHtml, /javascripts\/rechargement\.js/);
   assert.equal(front.headers.get('cache-control'), 'no-cache');
   const version = await get('/__dev/version');

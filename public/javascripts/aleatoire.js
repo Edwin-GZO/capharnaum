@@ -1,6 +1,9 @@
 jQuery(function ($) {
   const button = document.getElementById('generer-aleatoirement');
+  const namesButton = document.getElementById('proposer-noms');
+  const namesContainer = document.getElementById('propositions-noms');
   const status = document.getElementById('generation-statut');
+  let namesRequest = 0;
 
   async function lire(url, options) {
     const response = await fetch(window.urlCapharnaum(url), options);
@@ -53,6 +56,49 @@ jQuery(function ($) {
     perso.synchroWithView();
     status.textContent = 'Personnage généré. Tu peux modifier ses choix. Les tirages de finition, l’équipement et la richesse restent à compléter.';
   }
+
+  function appliquerNom(nom) {
+    $('#nom-personnage').val(nom).trigger('input');
+    status.classList.remove('erreur');
+    status.textContent = `Nom choisi : ${nom}.`;
+  }
+
+  async function proposerNoms() {
+    const request = ++namesRequest;
+    namesButton.disabled = true;
+    namesButton.textContent = 'Recherche des noms…';
+    status.classList.remove('erreur');
+    try {
+      const genre = document.getElementById('genre-nom').value;
+      const result = await lire(`/api/noms?genre=${encodeURIComponent(genre)}&nombre=5`);
+      if (request !== namesRequest) return;
+      namesContainer.replaceChildren(...result.noms.map(({ nom }) => {
+        const suggestion = document.createElement('button');
+        suggestion.type = 'button';
+        suggestion.textContent = nom;
+        suggestion.addEventListener('click', () => appliquerNom(nom));
+        return suggestion;
+      }));
+      namesContainer.hidden = false;
+      status.textContent = 'Choisis un nom parmi les propositions.';
+    } catch (error) {
+      if (request !== namesRequest) return;
+      namesContainer.hidden = true;
+      status.classList.add('erreur');
+      status.textContent = 'Impossible de proposer des noms pour le moment.';
+      console.error(error);
+    } finally {
+      if (request === namesRequest) {
+        namesButton.disabled = false;
+        namesButton.textContent = 'Proposer 5 noms';
+      }
+    }
+  }
+
+  namesButton.addEventListener('click', proposerNoms);
+  document.getElementById('genre-nom').addEventListener('change', () => {
+    if (!namesContainer.hidden) proposerNoms();
+  });
 
   button.addEventListener('click', async () => {
     if (button.disabled) return;

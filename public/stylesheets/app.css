@@ -40,6 +40,10 @@
 .identite-generation .champ-nom { flex: 1 1 400px; }
 .identite-generation .champ-genre { flex: 0 0 190px; }
 .identite-generation input, .identite-generation select { margin-bottom: 12px; }
+.propositions-noms { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.propositions-noms[hidden] { display: none; }
+.propositions-noms button { margin: 0; padding: 7px 11px; border: 1px solid #aaa; border-radius: 3px; background: #fff; color: #333; cursor: pointer; }
+.propositions-noms button:hover, .propositions-noms button:focus { border-color: #2284a1; background: #f0f9fc; color: #176b85; }
 .generation-aleatoire .button:disabled { opacity: .65; cursor: wait; }
 .page-title { max-width: 1800px; padding: 0 20px; }
 .page-layout {
